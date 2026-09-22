@@ -1,0 +1,26 @@
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+*:not(a):not(:disabled) {
+  color: var(--text);
+}
+
+html {
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  height: 100dvh;
+  margin: 0;
+}
+
+#root {
+  height: 100dvh;
+
+  display: flex;
+  justify-content: center;
+}

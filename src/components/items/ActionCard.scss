@@ -1,0 +1,19 @@
+.action-card {
+  display: flex;
+  justify-content: space-between;
+
+  &__action {
+    height: 40px;
+    width: 60px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--edit {
+      font-size: 1rem;
+      font-weight: bold;
+      line-height: 0;
+    }
+  }
+}

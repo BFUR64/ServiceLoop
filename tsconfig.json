@@ -3,5 +3,21 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    /* Core Strict Controls */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+
+    /* Code Quality Flags */
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    /* Modern Architecture & Module Rules */
+    "moduleDetection": "force",
+    "verbatimModuleSyntax": true,
+    "exactOptionalPropertyTypes": true
+  }
 }
