@@ -39,11 +39,16 @@ export async function handleAuthorized(): Promise<boolean> {
   return (await handle.queryPermission({ mode: "readwrite" })) === "granted";
 }
 
-export async function authorizeHandle(): Promise<boolean> {
+export async function authorizeHandle() {
   if (!handle) {
     throw new DOMException("Handle does not exist", "InvalidStateException");
   }
 
-  const status = await handle.requestPermission({ mode: "readwrite" });
-  return status === "granted";
+  document.dispatchEvent(
+    new CustomEvent("app:authorization-changed", {
+      detail: {
+        authorized: await handle.requestPermission({ mode: "readwrite" }),
+      },
+    }),
+  );
 }

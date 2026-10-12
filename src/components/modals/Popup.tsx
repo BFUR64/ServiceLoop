@@ -27,8 +27,13 @@ function Popup() {
   useEffect(() => {
     async function checkAuthorization() {
       if (handleExists()) {
-        setAuthorized(await handleAuthorized());
-        setDirectoryAvailable(await fileSystem.directoryAvailable());
+        const authorized = await handleAuthorized();
+
+        setAuthorized(authorized);
+
+        if (authorized) {
+          setDirectoryAvailable(await fileSystem.directoryAvailable());
+        }
       }
 
       setFirstStart(false);
