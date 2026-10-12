@@ -8,4 +8,5 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ["browser-fs-access"],
   },
+  base: "/ServiceLoop/",
 });

@@ -21,7 +21,7 @@ await loadData();
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <CssBaseline />
-    <BrowserRouter>
+    <BrowserRouter basename="/ServiceLoop/">
       <App />
     </BrowserRouter>
   </StrictMode>,
