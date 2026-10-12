@@ -46,9 +46,6 @@ jobs:
         with:
           path: ./dist
 
-      - name: Configure SPA fallback
-        run: cp dist/index.html dist/404.html
-
   # Single deploy job since we're just deploying
   deploy:
     environment:
