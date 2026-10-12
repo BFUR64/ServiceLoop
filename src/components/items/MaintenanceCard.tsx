@@ -4,6 +4,7 @@ import type { IntervalTime } from "../../utils/FileHandler";
 import calculateDue from "../../utils/DueCalculator";
 import { convertMsToDay, convertToMs } from "../../utils/TimeCalculator";
 import ActionCard from "./ActionCard";
+import { Paper, Stack, Typography, useTheme } from "@mui/material";
 
 interface MaintenanceProp {
   id: string;
@@ -48,21 +49,33 @@ function MaintenanceCard({
         )
       : null;
 
+  const theme = useTheme();
+
   return (
-    <div
+    <Paper
+      elevation={0}
+      sx={{
+        p: 2,
+        border: 1,
+        borderColor: theme.palette.mode === "dark" ? "grey.50" : "grey.400",
+      }}
       className={`maintenance-card maintenance-card--${returnUrgency(progressBar)}`}
     >
-      <ActionCard id={id} priority={priority} />
-
-      <span className="maintenance-card__info">
-        <span className="maintenance-card__meta">
-          Due: {kmLeft !== null ? kmLeft + " km" : "--"} /{" "}
-          {timeLeft !== null
-            ? timeLeft + " " + returnFormattedTime(timeLeft)
-            : "--"}
-        </span>
-        <span className="maintenance-card__title">{name}</span>
-      </span>
+      <ActionCard
+        id={id}
+        priority={priority}
+        information={
+          <Stack sx={{ marginTop: 2 }}>
+            <Typography>
+              Due: {kmLeft !== null ? kmLeft + " km" : "--"} /{" "}
+              {timeLeft !== null
+                ? timeLeft + " " + returnFormattedTime(timeLeft)
+                : "--"}
+            </Typography>
+            <Typography>{name}</Typography>
+          </Stack>
+        }
+      />
 
       <Progress.Root className="maintenance-card__progress" value={progressBar}>
         <Progress.Indicator
@@ -72,7 +85,7 @@ function MaintenanceCard({
           }}
         />
       </Progress.Root>
-    </div>
+    </Paper>
   );
 }
 

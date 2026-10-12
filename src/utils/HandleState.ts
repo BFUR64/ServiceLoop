@@ -7,13 +7,6 @@ const DB_KEY = "service-data-handler";
 let handle: FileSystemDirectoryHandle | undefined = undefined;
 
 export async function initHandle() {
-  if (!supportsFs) {
-    throw new DOMException(
-      "File System API Unsupported on Browser",
-      "InvalidStateException",
-    );
-  }
-
   handle = await get(DB_KEY);
 }
 
@@ -32,6 +25,10 @@ export async function setHandle(newHandle: FileSystemDirectoryHandle) {
 
 export function handleExists(): boolean {
   return handle != null;
+}
+
+export function supportsFileSystemAPI(): boolean {
+  return supportsFs;
 }
 
 export async function handleAuthorized(): Promise<boolean> {

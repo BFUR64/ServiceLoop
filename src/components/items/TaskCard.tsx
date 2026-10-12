@@ -1,5 +1,5 @@
+import { Paper, Typography, useTheme } from "@mui/material";
 import ActionCard from "./ActionCard";
-import "./TaskCard.scss";
 
 interface TaskProp {
   id: string;
@@ -8,12 +8,23 @@ interface TaskProp {
 }
 
 export function TaskCard({ id, name, priority }: TaskProp) {
-  return (
-    <div className="task-card">
-      <ActionCard id={id} priority={priority} />
+  const theme = useTheme();
 
-      <div className="task-card__info">{name}</div>
-    </div>
+  return (
+    <Paper
+      elevation={0}
+      sx={{
+        p: 2,
+        border: 1,
+        borderColor: theme.palette.mode === "dark" ? "grey.50" : "grey.400",
+      }}
+    >
+      <ActionCard
+        id={id}
+        priority={priority}
+        information={<Typography>{name}</Typography>}
+      />
+    </Paper>
   );
 }
 

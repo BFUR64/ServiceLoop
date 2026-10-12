@@ -1,8 +1,16 @@
-import { IconMessage } from "@tabler/icons-react";
 import { updateVehicle } from "../../../state/DataStorage";
 import type { VehicleData } from "../../../utils/FileHandler";
-import "./VehicleCard.scss";
 import { useNavigate } from "react-router-dom";
+import {
+  IconButton,
+  Paper,
+  Stack,
+  TextField,
+  Tooltip,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import { ChatOutlined, EditOutlined } from "@mui/icons-material";
 
 interface VehicleProp {
   vehicleId: string | undefined;
@@ -11,55 +19,69 @@ interface VehicleProp {
 
 function VehicleCard({ vehicleId, vehicleSelected }: VehicleProp) {
   const navigate = useNavigate();
-
-  if (vehicleId == undefined || vehicleSelected == undefined) {
-    return <div className="vehicle-card">Select or add a new vehicle</div>;
-  }
+  const theme = useTheme();
 
   return (
-    <div className="vehicle-card">
-      <div className="vehicle-card__info">
-        <div>{vehicleSelected.nickname}</div>
-        <div>
-          {(vehicleSelected.make ?? "--") +
-            " " +
-            (vehicleSelected.model ?? "") +
-            " " +
-            (vehicleSelected.trim ?? "")}
-        </div>
-        <div>
-          {(vehicleSelected.engine ?? "--") +
-            " | " +
-            (vehicleSelected.year ?? "--")}
-        </div>
-        <div>
-          <input
-            type="text"
-            value={vehicleSelected.currentOdometer}
-            onChange={(event) => {
-              const value = Number(event.target.value);
+    <Paper
+      elevation={0}
+      sx={{
+        p: 2,
+        border: 1,
+        borderColor: theme.palette.mode === "dark" ? "grey.50" : "grey.400",
+      }}
+    >
+      {vehicleId == undefined || vehicleSelected == undefined ? (
+        <Typography>Select or add a new vehicle</Typography>
+      ) : (
+        <>
+          <Stack direction="row" sx={{ justifyContent: "space-between" }}>
+            <Stack spacing={1}>
+              <Typography>{vehicleSelected.nickname}</Typography>
+              <Typography>
+                {(vehicleSelected.make ?? "--") +
+                  " " +
+                  (vehicleSelected.model ?? "") +
+                  " " +
+                  (vehicleSelected.trim ?? "")}
+              </Typography>
+              <Typography>
+                {(vehicleSelected.engine ?? "--") +
+                  " | " +
+                  (vehicleSelected.year ?? "--")}
+              </Typography>
+              <TextField
+                label="km"
+                variant="standard"
+                value={vehicleSelected.currentOdometer}
+                onChange={(event) => {
+                  const value = Number(event.target.value);
 
-              if (Number.isFinite(value)) {
-                updateVehicle(vehicleId, { currentOdometer: value });
-              }
-            }}
-          />{" "}
-          km
-        </div>
-      </div>
-      <div className="vehicle-card__actions">
-        <button
-          className="vehicle-card__action vehicle-card__action--edit"
-          onClick={() => navigate(`/vehicle/${vehicleId}`)}
-        >
-          Edit
-        </button>
+                  if (Number.isFinite(value)) {
+                    updateVehicle(vehicleId, { currentOdometer: value });
+                  }
+                }}
+              />
+            </Stack>
+            <Stack direction="row" spacing={2} sx={{ alignItems: "start" }}>
+              <Tooltip title="View note">
+                <IconButton>
+                  <ChatOutlined />
+                </IconButton>
+              </Tooltip>
 
-        <button className="vehicle-card__action">
-          <IconMessage />
-        </button>
-      </div>
-    </div>
+              <Tooltip
+                title="Edit item"
+                onClick={() => navigate(`/vehicle/${vehicleId}`)}
+              >
+                <IconButton>
+                  <EditOutlined />
+                </IconButton>
+              </Tooltip>
+            </Stack>
+          </Stack>
+        </>
+      )}
+    </Paper>
   );
 }
 

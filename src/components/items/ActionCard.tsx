@@ -1,35 +1,60 @@
+import { Box, IconButton, Stack, Tooltip } from "@mui/material";
 import {
-  IconBookmark,
-  IconBookmarkFilled,
-  IconCheck,
-  IconMessage,
-} from "@tabler/icons-react";
-import "./ActionCard.scss";
+  BookmarkBorderOutlined,
+  BookmarkOutlined,
+  ChatOutlined,
+  CheckOutlined,
+  EditOutlined,
+} from "@mui/icons-material";
 
 interface ActionProp {
   id: string;
   priority: boolean;
+  information: React.ReactNode;
 }
 
-function ActionCard({ id, priority }: ActionProp) {
+function ActionCard({ id, information, priority }: ActionProp) {
   return (
-    <div className="action-card">
-      <button className="action-card__action">
-        <IconCheck />
-      </button>
+    <Stack
+      direction="row"
+      sx={{ justifyContent: "space-between", width: "100%" }}
+    >
+      <Stack
+        direction="row"
+        spacing={2}
+        sx={{ alignItems: "center", minWidth: 0 }}
+      >
+        <Tooltip title="Mark as finished">
+          <IconButton>
+            <CheckOutlined />
+          </IconButton>
+        </Tooltip>
 
-      <button className="action-card__action">
-        <IconMessage />
-      </button>
+        <Box sx={{ overflow: "auto", whiteSpace: "nowrap", minWidth: 0 }}>
+          {information}
+        </Box>
+      </Stack>
 
-      <button className="action-card__action">
-        {priority ? <IconBookmarkFilled /> : <IconBookmark />}
-      </button>
+      <Stack direction="row" spacing={2}>
+        <Tooltip title="View note">
+          <IconButton>
+            <ChatOutlined />
+          </IconButton>
+        </Tooltip>
 
-      <button className="action-card__action action-card__action--edit">
-        Edit
-      </button>
-    </div>
+        <Tooltip title={priority ? "Remove bookmark" : "Add bookmark"}>
+          <IconButton>
+            {priority ? <BookmarkOutlined /> : <BookmarkBorderOutlined />}
+          </IconButton>
+        </Tooltip>
+
+        <Tooltip title="Edit item">
+          <IconButton>
+            <EditOutlined />
+          </IconButton>
+        </Tooltip>
+      </Stack>
+    </Stack>
   );
 }
 

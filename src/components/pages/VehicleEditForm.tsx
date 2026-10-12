@@ -2,9 +2,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useServiceData } from "../../hooks/DataHook.ts";
 import { useState } from "react";
 import { IconArrowLeft } from "@tabler/icons-react";
-import "./VehicleEditForm.scss";
 
 import * as dataStorage from "../../state/DataStorage.ts";
+import { Box, Button, Stack, TextField } from "@mui/material";
 
 interface VehicleDraft {
   nickname: string;
@@ -41,9 +41,10 @@ function VehicleEditForm() {
   const navigate = useNavigate();
 
   return (
-    <div className="vehicle">
-      <div className="vehicle__top">
-        <button
+    <Stack spacing={2} sx={{ overflow: "auto", padding: 2 }}>
+      <Box>
+        <Button
+          variant="contained"
           onClick={() =>
             vehicle != null
               ? navigate(`/dashboard/${vehicle.id}`)
@@ -51,84 +52,76 @@ function VehicleEditForm() {
           }
         >
           <IconArrowLeft />
-        </button>
-      </div>
+        </Button>
+      </Box>
 
-      <div className="vehicle__edit">
-        <p>Name</p>
-        <input
-          type="text"
+      <Stack spacing={4}>
+        <TextField
+          label="Name"
           value={draft.nickname}
           onChange={(event) =>
             setDraft({ ...draft, nickname: event.currentTarget.value })
           }
         />
 
-        <p>Note</p>
-        <input
-          type="text"
+        <TextField
+          label="Note"
           value={draft.note ?? ""}
           onChange={(event) =>
             setDraft({ ...draft, note: event.currentTarget.value || null })
           }
         />
 
-        <p>Make</p>
-        <input
-          type="text"
+        <TextField
+          label="Make"
           value={draft.make ?? ""}
           onChange={(event) =>
             setDraft({ ...draft, make: event.currentTarget.value || null })
           }
         />
 
-        <p>Model</p>
-        <input
-          type="text"
+        <TextField
+          label="Model"
           value={draft.model ?? ""}
           onChange={(event) =>
             setDraft({ ...draft, model: event.currentTarget.value || null })
           }
         />
 
-        <p>Trim</p>
-        <input
-          type="text"
+        <TextField
+          label="Trim"
           value={draft.trim ?? ""}
           onChange={(event) =>
             setDraft({ ...draft, trim: event.currentTarget.value || null })
           }
         />
 
-        <p>Year</p>
-        <input
-          type="text"
+        <TextField
+          label="Year"
           value={draft.year ?? ""}
           onChange={(event) =>
             setDraft({ ...draft, year: event.currentTarget.value || null })
           }
         />
 
-        <p>Engine</p>
-        <input
-          type="text"
+        <TextField
+          label="Engine"
           value={draft.engine ?? ""}
           onChange={(event) =>
             setDraft({ ...draft, engine: event.currentTarget.value || null })
           }
         />
 
-        <p>Fuel</p>
-        <input
-          type="text"
+        <TextField
+          label="Fuel"
           value={draft.fuel ?? ""}
           onChange={(event) =>
             setDraft({ ...draft, fuel: event.currentTarget.value || null })
           }
         />
 
-        <p>Current Odometer</p>
-        <input
+        <TextField
+          label="Current Odometer"
           type="number"
           value={draft.currentOdometer}
           onChange={(event) =>
@@ -138,10 +131,12 @@ function VehicleEditForm() {
             })
           }
         />
-      </div>
-      <div className="vehicle__actions">
+      </Stack>
+
+      <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
         {vehicle != null ? (
-          <button
+          <Button
+            variant="contained"
             onClick={() => {
               dataStorage.updateVehicle(vehicle.id, {
                 nickname: draft.nickname,
@@ -158,9 +153,10 @@ function VehicleEditForm() {
             }}
           >
             Save Changes
-          </button>
+          </Button>
         ) : (
-          <button
+          <Button
+            variant="contained"
             onClick={() => {
               const newId = crypto.randomUUID();
               dataStorage.addVehicle({
@@ -181,20 +177,22 @@ function VehicleEditForm() {
             }}
           >
             Save Vehicle
-          </button>
+          </Button>
         )}
         {vehicle != null ? (
-          <button
+          <Button
+            variant="contained"
+            color="error"
             onClick={() => {
               dataStorage.removeVehicle(vehicle.id);
               navigate(`/dashboard`);
             }}
           >
             Delete Vehicle
-          </button>
+          </Button>
         ) : null}
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   );
 }
 

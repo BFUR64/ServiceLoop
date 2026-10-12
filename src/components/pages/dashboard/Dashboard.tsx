@@ -1,10 +1,10 @@
 import { useServiceData } from "../../../hooks/DataHook";
 import VehicleCard from "./VehicleCard";
 import VehicleSelector from "./VehicleSelector";
-import "./Dashboard.scss";
 import { useParams } from "react-router-dom";
 import TaskCard from "../../items/TaskCard";
 import MaintenanceCard from "../../items/MaintenanceCard";
+import { Button, Divider, Stack, Typography } from "@mui/material";
 
 export function Dashboard() {
   const serviceData = useServiceData();
@@ -17,47 +17,72 @@ export function Dashboard() {
 
   return (
     <>
-      <div className="dashboard__vehicle">
+      <Stack sx={{ gap: 1, p: 2 }}>
         <VehicleSelector vehicleId={vehicleId} serviceData={serviceData} />
         <VehicleCard vehicleId={vehicleId} vehicleSelected={vehicleSelected} />
-      </div>
+      </Stack>
 
       {vehicleId == undefined || vehicleSelected == undefined ? null : (
         <>
-          <div className="dashboard__actions">
-            <h3>Upcoming Work</h3>
-            <button className="dashboard__action">Add Item</button>
-          </div>
+          <Stack
+            direction="row"
+            sx={{ p: 2, paddingTop: 0, alignItems: "center" }}
+          >
+            <Typography
+              variant="h2"
+              sx={{ fontSize: "1.25rem", fontWeight: 500, flexGrow: 1 }}
+            >
+              Upcoming Work
+            </Typography>
+            <Button variant="contained">Add Item</Button>
+          </Stack>
 
-          <div className="dashboard__items">
-            <h3>Task</h3>
-            <div className="dashboard__tasks">
-              {vehicleSelected.taskItems.map((item) => (
-                <TaskCard
-                  key={item.id}
-                  id={item.id}
-                  name={item.name}
-                  priority={item.priority}
-                />
-              ))}
-            </div>
-            <h3>Maintenance</h3>
-            <div className="dashboard__maintenances">
-              {vehicleSelected.maintenanceItems.map((item) => (
-                <MaintenanceCard
-                  key={item.id}
-                  id={item.id}
-                  name={item.name}
-                  dateServiced={item.dateServiced}
-                  mileageServiced={item.mileageServiced}
-                  intervalKm={item.intervalKm}
-                  intervalTime={item.intervalTime}
-                  currentOdometer={vehicleSelected.currentOdometer}
-                  priority={item.priority}
-                />
-              ))}
-            </div>
-          </div>
+          <Divider />
+
+          <Stack
+            spacing={2}
+            sx={{
+              p: 1,
+              overflow: "auto",
+              scrollbarGutter: "stable both-edges",
+            }}
+          >
+            <Stack>
+              <Typography variant="h3" sx={{ fontSize: "1.15rem" }}>
+                Task
+              </Typography>
+              <Stack spacing={2}>
+                {vehicleSelected.taskItems.map((item) => (
+                  <TaskCard
+                    key={item.id}
+                    id={item.id}
+                    name={item.name}
+                    priority={item.priority}
+                  />
+                ))}
+              </Stack>
+            </Stack>
+            <Stack>
+              <Typography variant="h3" sx={{ fontSize: "1.15rem" }}>
+                Maintenance
+              </Typography>
+              <Stack spacing={2}>
+                {vehicleSelected.maintenanceItems.map((item) => (
+                  <MaintenanceCard
+                    key={item.id}
+                    id={item.id}
+                    name={item.name}
+                    dateServiced={item.dateServiced}
+                    mileageServiced={item.mileageServiced}
+                    intervalKm={item.intervalKm}
+                    intervalTime={item.intervalTime}
+                    currentOdometer={vehicleSelected.currentOdometer}
+                    priority={item.priority}
+                  />
+                ))}
+              </Stack>
+            </Stack>
+          </Stack>
         </>
       )}
     </>
