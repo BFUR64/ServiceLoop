@@ -182,6 +182,9 @@ export function removeTaskItem(vId: string, sId: string) {
         : vehicle,
     ),
   };
+
+  notify();
+  saveFile(serviceData);
 }
 
 export function removeMaintenanceItem(vId: string, sId: string) {
@@ -198,4 +201,7 @@ export function removeMaintenanceItem(vId: string, sId: string) {
         : vehicle,
     ),
   };
+
+  notify();
+  saveFile(serviceData);
 }
