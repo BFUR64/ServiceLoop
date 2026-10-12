@@ -2,6 +2,8 @@ import { updateVehicle } from "../../../state/DataStorage";
 import type { VehicleData } from "../../../utils/FileHandler";
 import { useNavigate } from "react-router-dom";
 import {
+  Button,
+  ButtonGroup,
   IconButton,
   Paper,
   Stack,
@@ -27,7 +29,7 @@ function VehicleCard({ vehicleId, vehicleSelected }: VehicleProp) {
       sx={{
         p: 2,
         border: 1,
-        borderColor: theme.palette.mode === "dark" ? "grey.50" : "grey.400",
+        borderColor: theme.palette.mode === "dark" ? "grey.700" : "grey.400",
       }}
     >
       {vehicleId == undefined || vehicleSelected == undefined ? (
@@ -62,22 +64,32 @@ function VehicleCard({ vehicleId, vehicleSelected }: VehicleProp) {
                 }}
               />
             </Stack>
-            <Stack direction="row" spacing={2} sx={{ alignItems: "start" }}>
+            <ButtonGroup variant="text" sx={{ alignItems: "start" }}>
               <Tooltip title="View note">
-                <IconButton>
-                  <ChatOutlined />
-                </IconButton>
+                <Button>
+                  <ChatOutlined
+                    sx={{
+                      color:
+                        theme.palette.mode === "dark" ? "white" : "grey.600",
+                    }}
+                  />
+                </Button>
               </Tooltip>
 
               <Tooltip
                 title="Edit item"
                 onClick={() => navigate(`/vehicle/${vehicleId}`)}
               >
-                <IconButton>
-                  <EditOutlined />
-                </IconButton>
+                <Button>
+                  <EditOutlined
+                    sx={{
+                      color:
+                        theme.palette.mode === "dark" ? "white" : "grey.600",
+                    }}
+                  />
+                </Button>
               </Tooltip>
-            </Stack>
+            </ButtonGroup>
           </Stack>
         </>
       )}

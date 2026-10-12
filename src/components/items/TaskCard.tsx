@@ -16,7 +16,7 @@ export function TaskCard({ id, name, priority }: TaskProp) {
       sx={{
         p: 2,
         border: 1,
-        borderColor: theme.palette.mode === "dark" ? "grey.50" : "grey.400",
+        borderColor: theme.palette.mode === "dark" ? "grey.700" : "grey.400",
       }}
     >
       <ActionCard

@@ -1,4 +1,12 @@
-import { Box, IconButton, Stack, Tooltip } from "@mui/material";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  IconButton,
+  Stack,
+  Tooltip,
+  useTheme,
+} from "@mui/material";
 import {
   BookmarkBorderOutlined,
   BookmarkOutlined,
@@ -14,10 +22,15 @@ interface ActionProp {
 }
 
 function ActionCard({ information, priority }: ActionProp) {
+  const theme = useTheme();
+
   return (
     <Stack
       direction="row"
-      sx={{ justifyContent: "space-between", width: "100%" }}
+      sx={{
+        justifyContent: "space-between",
+        width: "100%",
+      }}
     >
       <Stack
         direction="row"
@@ -35,25 +48,45 @@ function ActionCard({ information, priority }: ActionProp) {
         </Box>
       </Stack>
 
-      <Stack direction="row" spacing={2}>
+      <ButtonGroup variant="text" sx={{ alignItems: "center" }}>
         <Tooltip title="View note">
-          <IconButton>
-            <ChatOutlined />
-          </IconButton>
+          <Button>
+            <ChatOutlined
+              sx={{
+                color: theme.palette.mode === "dark" ? "white" : "grey.600",
+              }}
+            />
+          </Button>
         </Tooltip>
 
         <Tooltip title={priority ? "Remove bookmark" : "Add bookmark"}>
-          <IconButton>
-            {priority ? <BookmarkOutlined /> : <BookmarkBorderOutlined />}
-          </IconButton>
+          <Button>
+            {priority ? (
+              <BookmarkOutlined
+                sx={{
+                  color: theme.palette.mode === "dark" ? "white" : "grey.600",
+                }}
+              />
+            ) : (
+              <BookmarkBorderOutlined
+                sx={{
+                  color: theme.palette.mode === "dark" ? "white" : "grey.600",
+                }}
+              />
+            )}
+          </Button>
         </Tooltip>
 
         <Tooltip title="Edit item">
-          <IconButton>
-            <EditOutlined />
-          </IconButton>
+          <Button>
+            <EditOutlined
+              sx={{
+                color: theme.palette.mode === "dark" ? "white" : "grey.600",
+              }}
+            />
+          </Button>
         </Tooltip>
-      </Stack>
+      </ButtonGroup>
     </Stack>
   );
 }

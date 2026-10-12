@@ -57,7 +57,7 @@ function MaintenanceCard({
       sx={{
         p: 2,
         border: 1,
-        borderColor: theme.palette.mode === "dark" ? "grey.50" : "grey.400",
+        borderColor: theme.palette.mode === "dark" ? "grey.700" : "grey.400",
       }}
       className={`maintenance-card maintenance-card--${returnUrgency(progressBar)}`}
     >
@@ -65,7 +65,7 @@ function MaintenanceCard({
         id={id}
         priority={priority}
         information={
-          <Stack sx={{ marginTop: 2 }}>
+          <Stack>
             <Typography>
               Due: {kmLeft !== null ? kmLeft + " km" : "--"} /{" "}
               {timeLeft !== null
