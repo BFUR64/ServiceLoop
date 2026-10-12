@@ -13,7 +13,7 @@ interface ActionProp {
   information: React.ReactNode;
 }
 
-function ActionCard({ id, information, priority }: ActionProp) {
+function ActionCard({ information, priority }: ActionProp) {
   return (
     <Stack
       direction="row"
