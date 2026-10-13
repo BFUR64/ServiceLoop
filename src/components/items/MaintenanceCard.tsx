@@ -69,6 +69,7 @@ function MaintenanceCard({
       <ActionCard
         vehicleId={vehicleId}
         itemId={itemId}
+        itemType="maintenance"
         priority={priority}
         information={
           <Stack>

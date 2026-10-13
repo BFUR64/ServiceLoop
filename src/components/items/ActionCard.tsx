@@ -11,15 +11,23 @@ import CheckOutlined from "@mui/icons-material/CheckOutlined";
 import EditOutlined from "@mui/icons-material/EditOutlined";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import * as dataStorage from "../../state/DataStorage";
 
 interface ActionProp {
   vehicleId: string;
   itemId: string;
+  itemType: "task" | "maintenance";
   priority: boolean;
   information: React.ReactNode;
 }
 
-function ActionCard({ vehicleId, itemId, information, priority }: ActionProp) {
+function ActionCard({
+  vehicleId,
+  itemId,
+  itemType,
+  information,
+  priority,
+}: ActionProp) {
   const theme = useTheme();
 
   const navigate = useNavigate();
@@ -60,7 +68,17 @@ function ActionCard({ vehicleId, itemId, information, priority }: ActionProp) {
         </Tooltip>
 
         <Tooltip title={priority ? "Remove bookmark" : "Add bookmark"}>
-          <Button>
+          <Button
+            onClick={() =>
+              itemType === "task"
+                ? dataStorage.updateTaskItem(vehicleId, itemId, {
+                    priority: !priority,
+                  })
+                : dataStorage.updateMaintenanceItem(vehicleId, itemId, {
+                    priority: !priority,
+                  })
+            }
+          >
             {priority ? (
               <BookmarkOutlined
                 sx={{

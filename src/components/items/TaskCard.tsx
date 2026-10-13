@@ -25,6 +25,7 @@ export function TaskCard({ vehicleId, itemId, name, priority }: TaskProp) {
       <ActionCard
         vehicleId={vehicleId}
         itemId={itemId}
+        itemType="task"
         priority={priority}
         information={<Typography>{name}</Typography>}
       />
