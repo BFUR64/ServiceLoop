@@ -1,7 +1,7 @@
 import { useServiceData } from "../../../hooks/DataHook";
 import VehicleCard from "./VehicleCard";
 import VehicleSelector from "./VehicleSelector";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import TaskCard from "../../items/TaskCard";
 import MaintenanceCard from "../../items/MaintenanceCard";
 import { Button, Divider, Stack, Typography } from "@mui/material";
@@ -14,6 +14,8 @@ export function Dashboard() {
   const vehicleSelected = serviceData.vehicles.find(
     (vehicle) => vehicle.id === vehicleId,
   );
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -34,7 +36,12 @@ export function Dashboard() {
             >
               Upcoming Work
             </Typography>
-            <Button variant="contained">Add Item</Button>
+            <Button
+              variant="contained"
+              onClick={() => navigate(`/vehicle/${vehicleId}/item/`)}
+            >
+              Add Item
+            </Button>
           </Stack>
 
           <Divider />
@@ -55,7 +62,8 @@ export function Dashboard() {
                 {vehicleSelected.taskItems.map((item) => (
                   <TaskCard
                     key={item.id}
-                    id={item.id}
+                    vehicleId={vehicleId}
+                    itemId={item.id}
                     name={item.name}
                     priority={item.priority}
                   />
@@ -70,7 +78,8 @@ export function Dashboard() {
                 {vehicleSelected.maintenanceItems.map((item) => (
                   <MaintenanceCard
                     key={item.id}
-                    id={item.id}
+                    vehicleId={vehicleId}
+                    itemId={item.id}
                     name={item.name}
                     dateServiced={item.dateServiced}
                     mileageServiced={item.mileageServiced}

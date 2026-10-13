@@ -117,7 +117,7 @@ export function addMaintenanceItem(vId: string, data: MaintenanceItem) {
 export function updateTaskItem(
   vId: string,
   sId: string,
-  changes: Partial<Omit<TaskItem, "type">>,
+  changes: Partial<TaskItem>,
 ) {
   serviceData = {
     ...serviceData,
@@ -125,7 +125,7 @@ export function updateTaskItem(
       vehicle.id === vId
         ? {
             ...vehicle,
-            workItems: vehicle.taskItems.map((item) =>
+            taskItems: vehicle.taskItems.map((item) =>
               item.id === sId
                 ? {
                     ...item,
@@ -145,7 +145,7 @@ export function updateTaskItem(
 export function updateMaintenanceItem(
   vId: string,
   sId: string,
-  changes: Partial<Omit<MaintenanceItem, "type">>,
+  changes: Partial<MaintenanceItem>,
 ) {
   serviceData = {
     ...serviceData,
@@ -153,7 +153,7 @@ export function updateMaintenanceItem(
       vehicle.id === vId
         ? {
             ...vehicle,
-            workItems: vehicle.maintenanceItems.map((item) =>
+            maintenanceItems: vehicle.maintenanceItems.map((item) =>
               item.id === sId
                 ? {
                     ...item,

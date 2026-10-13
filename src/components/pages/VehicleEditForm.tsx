@@ -4,7 +4,7 @@ import { useState } from "react";
 import { IconArrowLeft } from "@tabler/icons-react";
 
 import * as dataStorage from "../../state/DataStorage.ts";
-import { Box, Button, Stack, TextField } from "@mui/material";
+import { Box, Button, Stack, TextField, Tooltip } from "@mui/material";
 
 interface VehicleDraft {
   nickname: string;
@@ -43,16 +43,18 @@ function VehicleEditForm() {
   return (
     <Stack spacing={2} sx={{ overflow: "auto", padding: 2 }}>
       <Box>
-        <Button
-          variant="contained"
-          onClick={() =>
-            vehicle != null
-              ? navigate(`/dashboard/${vehicle.id}`)
-              : navigate("/dashboard")
-          }
-        >
-          <IconArrowLeft />
-        </Button>
+        <Tooltip title="Go back to dashboard">
+          <Button
+            variant="contained"
+            onClick={() =>
+              vehicle != null
+                ? navigate(`/dashboard/${vehicle.id}`)
+                : navigate("/dashboard")
+            }
+          >
+            <IconArrowLeft />
+          </Button>
+        </Tooltip>
       </Box>
 
       <Stack spacing={4}>
@@ -134,63 +136,41 @@ function VehicleEditForm() {
       </Stack>
 
       <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
-        {vehicle != null ? (
-          <Button
-            variant="contained"
-            onClick={() => {
-              dataStorage.updateVehicle(vehicle.id, {
-                nickname: draft.nickname,
-                note: draft.note,
-                make: draft.make,
-                model: draft.model,
-                trim: draft.trim,
-                year: draft.year,
-                engine: draft.engine,
-                fuel: draft.fuel,
-                currentOdometer: draft.currentOdometer,
-              });
+        <Button
+          variant="contained"
+          onClick={() => {
+            if (vehicle != null) {
+              dataStorage.updateVehicle(vehicle.id, draft);
               navigate(`/dashboard/${vehicle.id}`);
-            }}
-          >
-            Save Changes
-          </Button>
-        ) : (
-          <Button
-            variant="contained"
-            onClick={() => {
+            } else {
               const newId = crypto.randomUUID();
+
               dataStorage.addVehicle({
+                ...draft,
                 id: newId,
-                nickname: draft.nickname,
-                note: draft.note,
-                make: draft.make,
-                model: draft.model,
-                trim: draft.trim,
-                year: draft.year,
-                engine: draft.engine,
-                fuel: draft.fuel,
-                currentOdometer: draft.currentOdometer,
                 taskItems: [],
                 maintenanceItems: [],
               });
+
               navigate(`/dashboard/${newId}`);
-            }}
-          >
-            Save Vehicle
-          </Button>
-        )}
-        {vehicle != null ? (
+            }
+          }}
+        >
+          {vehicle != null ? "Save Changes" : "Save Vehicle"}
+        </Button>
+
+        {vehicle != null && (
           <Button
             variant="contained"
             color="error"
             onClick={() => {
               dataStorage.removeVehicle(vehicle.id);
-              navigate(`/dashboard`);
+              navigate("/dashboard");
             }}
           >
             Delete Vehicle
           </Button>
-        ) : null}
+        )}
       </Stack>
     </Stack>
   );

@@ -6,6 +6,7 @@ import Nav from "./components/pages/Nav";
 import VehicleEditForm from "./components/pages/VehicleEditForm";
 import Popup from "./components/modals/Popup";
 import { Stack } from "@mui/material";
+import ItemEditForm from "./components/pages/ItemEditForm";
 
 function App() {
   const location = useLocation();
@@ -21,6 +22,12 @@ function App() {
 
         <Route path="/vehicle" element={<VehicleEditForm />} />
         <Route path="/vehicle/:vehicleId" element={<VehicleEditForm />} />
+
+        <Route path="/vehicle/:vehicleId/item/" element={<ItemEditForm />} />
+        <Route
+          path="/vehicle/:vehicleId/item/:itemId"
+          element={<ItemEditForm />}
+        />
 
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>

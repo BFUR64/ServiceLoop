@@ -14,15 +14,19 @@ import {
   CheckOutlined,
   EditOutlined,
 } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 interface ActionProp {
-  id: string;
+  vehicleId: string;
+  itemId: string;
   priority: boolean;
   information: React.ReactNode;
 }
 
-function ActionCard({ information, priority }: ActionProp) {
+function ActionCard({ vehicleId, itemId, information, priority }: ActionProp) {
   const theme = useTheme();
+
+  const navigate = useNavigate();
 
   return (
     <Stack
@@ -78,7 +82,9 @@ function ActionCard({ information, priority }: ActionProp) {
         </Tooltip>
 
         <Tooltip title="Edit item">
-          <Button>
+          <Button
+            onClick={() => navigate(`/vehicle/${vehicleId}/item/${itemId}`)}
+          >
             <EditOutlined
               sx={{
                 color: theme.palette.mode === "dark" ? "white" : "grey.600",

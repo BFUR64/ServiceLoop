@@ -2,12 +2,13 @@ import { Paper, Typography, useTheme } from "@mui/material";
 import ActionCard from "./ActionCard";
 
 interface TaskProp {
-  id: string;
+  vehicleId: string;
+  itemId: string;
   name: string;
   priority: boolean;
 }
 
-export function TaskCard({ id, name, priority }: TaskProp) {
+export function TaskCard({ vehicleId, itemId, name, priority }: TaskProp) {
   const theme = useTheme();
 
   return (
@@ -20,7 +21,8 @@ export function TaskCard({ id, name, priority }: TaskProp) {
       }}
     >
       <ActionCard
-        id={id}
+        vehicleId={vehicleId}
+        itemId={itemId}
         priority={priority}
         information={<Typography>{name}</Typography>}
       />

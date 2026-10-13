@@ -7,7 +7,8 @@ import ActionCard from "./ActionCard";
 import { Paper, Stack, Typography, useTheme } from "@mui/material";
 
 interface MaintenanceProp {
-  id: string;
+  vehicleId: string;
+  itemId: string;
   name: string;
   dateServiced: string;
   mileageServiced: number;
@@ -18,7 +19,8 @@ interface MaintenanceProp {
 }
 
 function MaintenanceCard({
-  id,
+  vehicleId,
+  itemId,
   name,
   dateServiced,
   mileageServiced,
@@ -62,7 +64,8 @@ function MaintenanceCard({
       className={`maintenance-card maintenance-card--${returnUrgency(progressBar)}`}
     >
       <ActionCard
-        id={id}
+        vehicleId={vehicleId}
+        itemId={itemId}
         priority={priority}
         information={
           <Stack>
