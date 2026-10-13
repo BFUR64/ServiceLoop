@@ -17,7 +17,6 @@
     "@mui/material": "^9.5.0",
     "@mui/x-date-pickers": "^9.15.0",
     "@radix-ui/react-progress": "^1.1.16",
-    "@tabler/icons-react": "^3.47.0",
     "dayjs": "^1.11.23",
     "idb-keyval": "^6.3.0",
     "react": "^19.2.8",

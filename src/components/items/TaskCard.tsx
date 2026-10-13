@@ -1,4 +1,6 @@
-import { Paper, Typography, useTheme } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import { useTheme } from "@mui/material/styles";
 import ActionCard from "./ActionCard";
 
 interface TaskProp {

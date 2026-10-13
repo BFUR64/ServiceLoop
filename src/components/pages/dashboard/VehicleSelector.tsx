@@ -1,15 +1,13 @@
 import type { ServiceData } from "../../../utils/FileHandler";
 import { useNavigate } from "react-router-dom";
-import {
-  FormControl,
-  IconButton,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-  Tooltip,
-} from "@mui/material";
-import { AddCircle } from "@mui/icons-material";
+import FormControl from "@mui/material/FormControl";
+import IconButton from "@mui/material/IconButton";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Stack from "@mui/material/Stack";
+import Tooltip from "@mui/material/Tooltip";
+import AddCircle from "@mui/icons-material/AddCircle";
 
 interface VehicleSelectorProp {
   vehicleId: string | undefined;

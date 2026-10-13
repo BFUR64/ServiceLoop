@@ -1,19 +1,15 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  IconButton,
-  Stack,
-  Tooltip,
-  useTheme,
-} from "@mui/material";
-import {
-  BookmarkBorderOutlined,
-  BookmarkOutlined,
-  ChatOutlined,
-  CheckOutlined,
-  EditOutlined,
-} from "@mui/icons-material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
+import Tooltip from "@mui/material/Tooltip";
+import BookmarkBorderOutlined from "@mui/icons-material/BookmarkBorderOutlined";
+import BookmarkOutlined from "@mui/icons-material/BookmarkOutlined";
+import ChatOutlined from "@mui/icons-material/ChatOutlined";
+import CheckOutlined from "@mui/icons-material/CheckOutlined";
+import EditOutlined from "@mui/icons-material/EditOutlined";
+import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 
 interface ActionProp {

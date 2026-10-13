@@ -1,10 +1,8 @@
 import { useMemo, type ReactNode } from "react";
-import {
-  CssBaseline,
-  ThemeProvider,
-  useMediaQuery,
-} from "@mui/material";
-import { createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export default function AppThemeProvider({
   children,

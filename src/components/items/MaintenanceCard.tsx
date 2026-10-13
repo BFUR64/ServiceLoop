@@ -4,7 +4,10 @@ import type { IntervalTime } from "../../utils/FileHandler";
 import calculateDue from "../../utils/DueCalculator";
 import { convertMsToDay, convertToMs } from "../../utils/TimeCalculator";
 import ActionCard from "./ActionCard";
-import { Paper, Stack, Typography, useTheme } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import { useTheme } from "@mui/material/styles";
 
 interface MaintenanceProp {
   vehicleId: string;

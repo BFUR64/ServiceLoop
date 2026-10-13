@@ -1,11 +1,9 @@
-import {
-  AppBar,
-  IconButton,
-  Toolbar,
-  Tooltip,
-  Typography,
-} from "@mui/material";
-import { SettingsOutlined } from "@mui/icons-material";
+import AppBar from "@mui/material/AppBar";
+import IconButton from "@mui/material/IconButton";
+import Toolbar from "@mui/material/Toolbar";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 
 interface NavProp {
   isPrimary: boolean;

@@ -4,7 +4,10 @@ import VehicleSelector from "./VehicleSelector";
 import { useNavigate, useParams } from "react-router-dom";
 import TaskCard from "../../items/TaskCard";
 import MaintenanceCard from "../../items/MaintenanceCard";
-import { Button, Divider, Stack, Typography } from "@mui/material";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 
 export function Dashboard() {
   const serviceData = useServiceData();

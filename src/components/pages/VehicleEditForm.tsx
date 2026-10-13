@@ -1,10 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useServiceData } from "../../hooks/DataHook.ts";
 import { useState } from "react";
-import { IconArrowLeft } from "@tabler/icons-react";
 
 import * as dataStorage from "../../state/DataStorage.ts";
-import { Box, Button, Stack, TextField, Tooltip } from "@mui/material";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import BackButton from "../items/BackButton.tsx";
 
 interface VehicleDraft {
   nickname: string;
@@ -42,20 +44,7 @@ function VehicleEditForm() {
 
   return (
     <Stack spacing={2} sx={{ overflow: "auto", padding: 2 }}>
-      <Box>
-        <Tooltip title="Go back to dashboard">
-          <Button
-            variant="contained"
-            onClick={() =>
-              vehicle != null
-                ? navigate(`/dashboard/${vehicle.id}`)
-                : navigate("/dashboard")
-            }
-          >
-            <IconArrowLeft />
-          </Button>
-        </Tooltip>
-      </Box>
+      <BackButton vehicle={vehicle} />
 
       <Stack spacing={4}>
         <TextField
