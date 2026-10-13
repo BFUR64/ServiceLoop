@@ -112,7 +112,7 @@ function VehicleEditForm() {
         />
 
         <TextField
-          label="Current Odometer"
+          label="Odometer (km)"
           type="number"
           value={draft.currentOdometer}
           onChange={(event) =>
