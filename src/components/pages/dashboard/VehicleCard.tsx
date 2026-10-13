@@ -36,7 +36,6 @@ function VehicleCard({ vehicleId, vehicleSelected }: VehicleProp) {
         <>
           <Stack direction="row" sx={{ justifyContent: "space-between" }}>
             <Stack spacing={1}>
-              <Typography>{vehicleSelected.nickname}</Typography>
               <Typography>
                 {(vehicleSelected.make ?? "--") +
                   " " +
