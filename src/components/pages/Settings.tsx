@@ -9,10 +9,22 @@ import FormLabel from "@mui/material/FormLabel";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function Settings() {
-  const handle = getHandle();
+  const [directoryName, setDirectoryname] = useState(getHandle().name);
+
+  useEffect(() => {
+    const setNewDirectoryName = () => {
+      setDirectoryname(getHandle().name);
+    };
+
+    document.addEventListener("app:folder-changed", setNewDirectoryName);
+
+    return () => {
+      document.removeEventListener("app:folder-changed", setNewDirectoryName);
+    };
+  }, []);
 
   const currentPreference =
     localStorage.getItem("theme-preference") ?? "system";
@@ -25,7 +37,7 @@ export function Settings() {
 
       <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
         <TextField
-          defaultValue={`📁 ${handle.name}`}
+          value={`📁 ${directoryName}`}
           variant="outlined"
           disabled
         ></TextField>
