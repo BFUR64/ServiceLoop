@@ -4,12 +4,15 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
+import { useNavigate } from "react-router-dom";
 
 interface NavProp {
   isPrimary: boolean;
 }
 
 export function Nav({ isPrimary = false }: NavProp) {
+  const navigate = useNavigate();
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -21,7 +24,7 @@ export function Nav({ isPrimary = false }: NavProp) {
         </Typography>
         {isPrimary && (
           <Tooltip title="Settings">
-            <IconButton onClick={() => console.log("I am clicked!")}>
+            <IconButton onClick={() => navigate("/settings")}>
               <SettingsOutlined sx={{ color: "white" }} />
             </IconButton>
           </Tooltip>

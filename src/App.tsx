@@ -8,6 +8,7 @@ import "./App.scss";
 import Dashboard from "./components/pages/dashboard/Dashboard";
 import VehicleEditForm from "./components/pages/VehicleEditForm";
 import ItemEditForm from "./components/pages/item/ItemEditForm";
+import { Settings } from "./components/pages/Settings";
 
 function App() {
   const location = useLocation();
@@ -25,11 +26,13 @@ function App() {
         <Route path="/vehicle" element={<VehicleEditForm />} />
         <Route path="/vehicle/:vehicleId" element={<VehicleEditForm />} />
 
-        <Route path="/vehicle/:vehicleId/item/" element={<ItemEditForm />} />
+        <Route path="/vehicle/:vehicleId/item" element={<ItemEditForm />} />
         <Route
           path="/vehicle/:vehicleId/item/:itemId"
           element={<ItemEditForm />}
         />
+
+        <Route path="/settings" element={<Settings />} />
 
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>

@@ -1,8 +1,10 @@
-import { useMemo, type ReactNode } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useEffect, useState, type ReactNode } from "react";
+
+type ThemePreference = "light" | "dark" | "system";
 
 export default function AppThemeProvider({
   children,
@@ -11,15 +13,31 @@ export default function AppThemeProvider({
 }) {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode: prefersDarkMode ? "dark" : "light",
-        },
-      }),
-    [prefersDarkMode],
-  );
+  const [themePreference, setThemePreference] =
+    useState<ThemePreference>(getThemePreference());
+
+  useEffect(() => {
+    const handlePreferenceChange = () => {
+      setThemePreference(getThemePreference());
+    };
+
+    document.addEventListener("app:theme-changed", handlePreferenceChange);
+
+    return () => {
+      document.removeEventListener("app:theme-changed", handlePreferenceChange);
+    };
+  }, []);
+
+  const theme = createTheme({
+    palette: {
+      mode:
+        themePreference === "system"
+          ? prefersDarkMode
+            ? "dark"
+            : "light"
+          : themePreference,
+    },
+  });
 
   return (
     <ThemeProvider theme={theme}>
@@ -27,4 +45,18 @@ export default function AppThemeProvider({
       {children}
     </ThemeProvider>
   );
+}
+
+function getThemePreference(): ThemePreference {
+  const preference = localStorage.getItem("theme-preference");
+
+  if (
+    preference === "light" ||
+    preference === "dark" ||
+    preference === "system"
+  ) {
+    return preference;
+  }
+
+  return "system";
 }

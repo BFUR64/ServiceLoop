@@ -2,6 +2,7 @@ declare global {
   interface GlobalEventHandlersEventMap {
     "app:folder-changed": Event;
     "app:authorization-changed": AuthorizationChangedEvent;
+    "app:theme-changed": Event;
   }
 }
 
