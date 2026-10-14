@@ -25,6 +25,7 @@ import dayjs from "dayjs";
 
 import TypeSwitcher from "./TypeSwitcher";
 import * as dataStorage from "../../../state/DataStorage.ts";
+import { validateName } from "../../../utils/Validator.ts";
 
 interface MaintenanceDraft {
   name: string;
@@ -64,16 +65,22 @@ function MaintenanceEditForm({
     () => draft.intervalTime.unit,
   );
 
+  const [nameMessage, setNameMessage] = useState("");
+
   const navigate = useNavigate();
 
   return (
     <>
       <TextField
         label="Name"
+        error={Boolean(nameMessage)}
         value={draft.name}
-        onChange={(event) =>
-          setDraft((previous) => ({ ...previous, name: event.target.value }))
-        }
+        helperText={nameMessage}
+        onChange={(event) => {
+          const text = event.target.value;
+          setDraft((previous) => ({ ...previous, name: text }));
+          setNameMessage(validateName(text));
+        }}
       />
       <TextField
         label="Note"
@@ -209,6 +216,14 @@ function MaintenanceEditForm({
         <Button
           variant="contained"
           onClick={() => {
+            const error = validateName(draft.name);
+
+            setNameMessage(error);
+
+            if (error) {
+              return;
+            }
+
             if (item != null) {
               dataStorage.updateMaintenanceItem(vehicleId, item.id, draft);
               navigate(`/dashboard/${vehicleId}`);

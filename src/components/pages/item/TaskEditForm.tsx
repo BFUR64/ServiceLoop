@@ -7,6 +7,7 @@ import type { TaskItem } from "../../../utils/FileHandler";
 import type { TypeSwitcherProp } from "./TypeSwitcher";
 import TypeSwitcher from "./TypeSwitcher";
 import * as dataStorage from "../../../state/DataStorage.ts";
+import { validateName } from "../../../utils/Validator.ts";
 
 interface TaskDraft {
   name: string;
@@ -25,16 +26,22 @@ function TaskEditForm({ vehicleId, item, typeSwitcherProp }: TaskEditFormProp) {
     note: item?.note ?? null,
   }));
 
+  const [nameMessage, setNameMessage] = useState("");
+
   const navigate = useNavigate();
 
   return (
     <>
       <TextField
         label="Name"
+        error={Boolean(nameMessage)}
         value={draft.name}
-        onChange={(event) =>
-          setDraft((previous) => ({ ...previous, name: event.target.value }))
-        }
+        helperText={nameMessage}
+        onChange={(event) => {
+          const text = event.target.value;
+          setDraft((previous) => ({ ...previous, name: text }));
+          setNameMessage(validateName(text));
+        }}
       />
       <TextField
         label="Note"
@@ -52,6 +59,14 @@ function TaskEditForm({ vehicleId, item, typeSwitcherProp }: TaskEditFormProp) {
         <Button
           variant="contained"
           onClick={() => {
+            const error = validateName(draft.name);
+
+            setNameMessage(error);
+
+            if (error) {
+              return;
+            }
+
             if (item != null) {
               dataStorage.updateTaskItem(vehicleId, item.id, draft);
               navigate(`/dashboard/${vehicleId}`);

@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import BackButton from "../items/BackButton.tsx";
+import { validateName } from "../../utils/Validator.ts";
 
 interface VehicleDraft {
   nickname: string;
@@ -40,6 +41,8 @@ function VehicleEditForm() {
     currentOdometer: vehicle?.currentOdometer ?? 0,
   }));
 
+  const [nameMessage, setNameMessage] = useState("");
+
   const navigate = useNavigate();
 
   return (
@@ -49,10 +52,15 @@ function VehicleEditForm() {
       <Stack spacing={4}>
         <TextField
           label="Name"
+          error={Boolean(nameMessage)}
           value={draft.nickname}
-          onChange={(event) =>
-            setDraft({ ...draft, nickname: event.currentTarget.value })
-          }
+          helperText={nameMessage}
+          onChange={(event) => {
+            const text = event.currentTarget.value;
+
+            setDraft({ ...draft, nickname: text });
+            setNameMessage(validateName(text));
+          }}
         />
 
         <TextField
@@ -128,6 +136,14 @@ function VehicleEditForm() {
         <Button
           variant="contained"
           onClick={() => {
+            const error = validateName(draft.nickname);
+
+            setNameMessage(error);
+
+            if (error) {
+              return;
+            }
+
             if (vehicle != null) {
               dataStorage.updateVehicle(vehicle.id, draft);
               navigate(`/dashboard/${vehicle.id}`);
