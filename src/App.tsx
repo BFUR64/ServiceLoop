@@ -2,7 +2,6 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 
 import Nav from "./components/pages/Nav";
-import Popup from "./components/modals/Popup";
 
 import "./App.scss";
 import Dashboard from "./components/pages/dashboard/Dashboard";
@@ -36,8 +35,6 @@ function App() {
 
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
-
-      <Popup />
     </Stack>
   );
 }

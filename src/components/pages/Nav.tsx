@@ -5,12 +5,22 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 import { useNavigate } from "react-router-dom";
+import Stack from "@mui/material/Stack";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
+
+import { visuallyHidden } from "@mui/utils";
+import { exportJSON, importJSON } from "../../fs-adapters/Json";
+import { saveToIdb } from "../../state/ServiceDataStore";
+import { useServiceData } from "../../hooks/useServiceData";
 
 interface NavProp {
   isPrimary: boolean;
 }
 
 export function Nav({ isPrimary = false }: NavProp) {
+  const serviceData = useServiceData();
+
   const navigate = useNavigate();
 
   return (
@@ -23,11 +33,37 @@ export function Nav({ isPrimary = false }: NavProp) {
           ServiceLoop
         </Typography>
         {isPrimary && (
-          <Tooltip title="Settings">
-            <IconButton onClick={() => navigate("/settings")}>
-              <SettingsOutlined sx={{ color: "white" }} />
-            </IconButton>
-          </Tooltip>
+          <Stack direction="row" spacing={2}>
+            <Tooltip title="Download JSON">
+              <IconButton
+                onClick={() => exportJSON(serviceData, "service-loop.json")}
+              >
+                <FileDownloadIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Upload JSON">
+              <IconButton component="label">
+                <FileUploadIcon />
+                <input
+                  type="file"
+                  accept=".json"
+                  style={visuallyHidden}
+                  onChange={async (event) => {
+                    const file = event.target.files?.[0];
+
+                    if (file != null) {
+                      saveToIdb(await importJSON(file));
+                    }
+                  }}
+                />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Settings">
+              <IconButton onClick={() => navigate("/settings")}>
+                <SettingsOutlined sx={{ color: "white" }} />
+              </IconButton>
+            </Tooltip>
+          </Stack>
         )}
       </Toolbar>
     </AppBar>

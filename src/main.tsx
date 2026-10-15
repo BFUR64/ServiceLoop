@@ -11,9 +11,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import AppThemeProvider from "./services/AppThemeProvider.tsx";
-import { initHandle } from "./services/DirectoryAccess.ts";
 
-await initHandle();
 initServiceDataMemoryListener();
 await loadData();
 

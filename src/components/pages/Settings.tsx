@@ -1,30 +1,16 @@
 import Stack from "@mui/material/Stack";
 import BackButton from "../shared/BackButton";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
-import { useEffect, useState } from "react";
-import { getHandleName, requestFolder } from "../../services/DirectoryAccess";
+import { useState } from "react";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import { deleteDataFromIdb } from "../../state/ServiceDataStore";
 
 export function Settings() {
-  const [directoryName, setDirectoryname] = useState(getHandleName());
-
-  useEffect(() => {
-    const setNewDirectoryName = () => {
-      setDirectoryname(getHandleName());
-    };
-
-    document.addEventListener("app:folder-changed", setNewDirectoryName);
-
-    return () => {
-      document.removeEventListener("app:folder-changed", setNewDirectoryName);
-    };
-  }, []);
-
   const currentPreference =
     localStorage.getItem("theme-preference") ?? "system";
 
@@ -34,17 +20,6 @@ export function Settings() {
     <Stack spacing={2} sx={{ padding: 2 }}>
       <BackButton vehicle={undefined} />
 
-      <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
-        <TextField
-          value={`📁 ${directoryName}`}
-          variant="outlined"
-          disabled
-        ></TextField>
-
-        <Button variant="contained" onClick={() => requestFolder()}>
-          Change directory
-        </Button>
-      </Stack>
       <FormControl>
         <FormLabel>Theme</FormLabel>
 
@@ -65,6 +40,16 @@ export function Settings() {
           <FormControlLabel control={<Radio />} value="system" label="System" />
         </RadioGroup>
       </FormControl>
+
+      <Box>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={() => deleteDataFromIdb()}
+        >
+          Clear App Data
+        </Button>
+      </Box>
     </Stack>
   );
 }

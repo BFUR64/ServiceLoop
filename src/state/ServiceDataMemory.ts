@@ -5,12 +5,7 @@ import {
   type TaskItem,
   type VehicleData,
 } from "../models/ServiceData";
-import { loadFile, saveFile } from "../services/FileAccess";
-import {
-  directoryAvailable,
-  handleAuthorized,
-  handleExists,
-} from "../services/DirectoryAccess";
+import { loadFromIdb, saveToIdb } from "./ServiceDataStore";
 
 let serviceData: ServiceData = emptyServiceData;
 
@@ -35,31 +30,31 @@ export function getServiceData() {
 }
 
 export async function loadData() {
-  try {
-    if (
-      handleExists() &&
-      (await handleAuthorized()) &&
-      (await directoryAvailable())
-    ) {
-      serviceData = await loadFile();
-      notify();
-    }
-  } catch (error) {
-    console.error("Failed to load service data:", error);
+  const loadedServiceData = await loadFromIdb();
+
+  if (loadedServiceData == undefined) {
+    await saveToIdb(emptyServiceData);
+    return;
   }
+
+  serviceData = loadedServiceData;
+  notify();
 }
 
-export function addVehicle(data: VehicleData) {
+export async function addVehicle(data: VehicleData) {
   serviceData = {
     ...serviceData,
     vehicles: [...serviceData.vehicles, data],
   };
 
   notify();
-  persistServiceData();
+  await saveToIdb(serviceData);
 }
 
-export function updateVehicle(vId: string, changes: Partial<VehicleData>) {
+export async function updateVehicle(
+  vId: string,
+  changes: Partial<VehicleData>,
+) {
   serviceData = {
     ...serviceData,
     vehicles: serviceData.vehicles.map((vehicle) =>
@@ -73,20 +68,20 @@ export function updateVehicle(vId: string, changes: Partial<VehicleData>) {
   };
 
   notify();
-  persistServiceData();
+  await saveToIdb(serviceData);
 }
 
-export function removeVehicle(vId: string) {
+export async function removeVehicle(vId: string) {
   serviceData = {
     ...serviceData,
     vehicles: serviceData.vehicles.filter((vehicle) => vehicle.id !== vId),
   };
 
   notify();
-  persistServiceData();
+  await saveToIdb(serviceData);
 }
 
-export function addTaskItem(vId: string, data: TaskItem) {
+export async function addTaskItem(vId: string, data: TaskItem) {
   serviceData = {
     ...serviceData,
     vehicles: serviceData.vehicles.map((vehicle) =>
@@ -100,10 +95,10 @@ export function addTaskItem(vId: string, data: TaskItem) {
   };
 
   notify();
-  persistServiceData();
+  await saveToIdb(serviceData);
 }
 
-export function addMaintenanceItem(vId: string, data: MaintenanceItem) {
+export async function addMaintenanceItem(vId: string, data: MaintenanceItem) {
   serviceData = {
     ...serviceData,
     vehicles: serviceData.vehicles.map((vehicle) =>
@@ -117,10 +112,10 @@ export function addMaintenanceItem(vId: string, data: MaintenanceItem) {
   };
 
   notify();
-  persistServiceData();
+  await saveToIdb(serviceData);
 }
 
-export function updateTaskItem(
+export async function updateTaskItem(
   vId: string,
   sId: string,
   changes: Partial<TaskItem>,
@@ -145,10 +140,10 @@ export function updateTaskItem(
   };
 
   notify();
-  persistServiceData();
+  await saveToIdb(serviceData);
 }
 
-export function updateMaintenanceItem(
+export async function updateMaintenanceItem(
   vId: string,
   sId: string,
   changes: Partial<MaintenanceItem>,
@@ -173,10 +168,10 @@ export function updateMaintenanceItem(
   };
 
   notify();
-  persistServiceData();
+  await saveToIdb(serviceData);
 }
 
-export function removeTaskItem(vId: string, sId: string) {
+export async function removeTaskItem(vId: string, sId: string) {
   serviceData = {
     ...serviceData,
     vehicles: serviceData.vehicles.map((vehicle) =>
@@ -190,10 +185,10 @@ export function removeTaskItem(vId: string, sId: string) {
   };
 
   notify();
-  persistServiceData();
+  await saveToIdb(serviceData);
 }
 
-export function removeMaintenanceItem(vId: string, sId: string) {
+export async function removeMaintenanceItem(vId: string, sId: string) {
   serviceData = {
     ...serviceData,
     vehicles: serviceData.vehicles.map((vehicle) =>
@@ -209,11 +204,5 @@ export function removeMaintenanceItem(vId: string, sId: string) {
   };
 
   notify();
-  persistServiceData();
-}
-
-function persistServiceData() {
-  saveFile(serviceData).catch((error: unknown) => {
-    console.error("Failed to save service data:", error);
-  });
+  await saveToIdb(serviceData);
 }
