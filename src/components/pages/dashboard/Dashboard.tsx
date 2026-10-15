@@ -1,4 +1,4 @@
-import { useServiceData } from "../../../hooks/DataHook";
+import { useServiceData } from "../../../hooks/useServiceData";
 import VehicleCard from "./VehicleCard";
 import VehicleSelector from "./VehicleSelector";
 import { useNavigate, useParams } from "react-router-dom";

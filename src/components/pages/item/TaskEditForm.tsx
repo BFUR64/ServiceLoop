@@ -3,11 +3,11 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import type { TaskItem } from "../../../utils/FileHandler";
 import type { TypeSwitcherProp } from "./TypeSwitcher";
 import TypeSwitcher from "./TypeSwitcher";
-import * as dataStorage from "../../../state/DataStorage.ts";
+import * as dataStorage from "../../../state/ServiceDataMemory.ts";
 import { validateName } from "../../../utils/Validator.ts";
+import type { TaskItem } from "../../../models/ServiceData.ts";
 
 interface TaskDraft {
   name: string;

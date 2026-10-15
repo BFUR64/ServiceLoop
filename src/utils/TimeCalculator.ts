@@ -1,4 +1,4 @@
-import type { IntervalTime } from "./FileHandler";
+import type { IntervalTime } from "../models/ServiceData";
 
 export function convertToDay(
   unit: IntervalTime["unit"],

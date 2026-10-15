@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useServiceData } from "../../hooks/DataHook.ts";
+import { useServiceData } from "../../hooks/useServiceData.ts";
 import { useState } from "react";
 
-import * as dataStorage from "../../state/DataStorage.ts";
+import * as dataStorage from "../../state/ServiceDataMemory.ts";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";

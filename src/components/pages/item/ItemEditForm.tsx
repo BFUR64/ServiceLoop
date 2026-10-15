@@ -1,5 +1,5 @@
 import { Navigate, useParams } from "react-router-dom";
-import { useServiceData } from "../../../hooks/DataHook";
+import { useServiceData } from "../../../hooks/useServiceData.ts";
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
 import TaskEditForm from "./TaskEditForm.tsx";

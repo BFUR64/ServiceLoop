@@ -1,6 +1,6 @@
-import { loadData } from "../state/DataStorage";
+import { loadData } from "../state/ServiceDataMemory";
 
-export default function initDataService() {
+export default function initServiceDataMemoryListener() {
   document.addEventListener("app:folder-changed", () => {
     loadData();
   });

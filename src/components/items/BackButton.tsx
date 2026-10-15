@@ -2,8 +2,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import type { VehicleData } from "../../utils/FileHandler";
 import { useNavigate } from "react-router-dom";
+import type { VehicleData } from "../../models/ServiceData";
 
 interface BackButtonProp {
   vehicle: VehicleData | undefined;

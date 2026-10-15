@@ -1,9 +1,4 @@
 import { useState } from "react";
-import type {
-  IntervalTime,
-  MaintenanceItem,
-  TimeUnit,
-} from "../../../utils/FileHandler";
 import type { TypeSwitcherProp } from "./TypeSwitcher";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -24,8 +19,13 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 
 import TypeSwitcher from "./TypeSwitcher";
-import * as dataStorage from "../../../state/DataStorage.ts";
+import * as dataStorage from "../../../state/ServiceDataMemory.ts";
 import { validateName } from "../../../utils/Validator.ts";
+import type {
+  IntervalTime,
+  MaintenanceItem,
+  TimeUnit,
+} from "../../../models/ServiceData.ts";
 
 interface MaintenanceDraft {
   name: string;

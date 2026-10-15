@@ -1,14 +1,16 @@
 import {
   emptyServiceData,
-  loadFile,
-  saveFile,
   type MaintenanceItem,
   type ServiceData,
   type TaskItem,
   type VehicleData,
-} from "../utils/FileHandler";
-import { directoryAvailable } from "../utils/FileSystem";
-import { handleAuthorized, handleExists } from "../utils/HandleState";
+} from "../models/ServiceData";
+import { loadFile, saveFile } from "../services/FileAccess";
+import {
+  directoryAvailable,
+  handleAuthorized,
+  handleExists,
+} from "../services/DirectoryAccess";
 
 let serviceData: ServiceData = emptyServiceData;
 
@@ -33,13 +35,17 @@ export function getServiceData() {
 }
 
 export async function loadData() {
-  if (
-    handleExists() &&
-    (await handleAuthorized()) &&
-    (await directoryAvailable())
-  ) {
-    serviceData = await loadFile();
-    notify();
+  try {
+    if (
+      handleExists() &&
+      (await handleAuthorized()) &&
+      (await directoryAvailable())
+    ) {
+      serviceData = await loadFile();
+      notify();
+    }
+  } catch (error) {
+    console.error("Failed to load service data:", error);
   }
 }
 
@@ -50,7 +56,7 @@ export function addVehicle(data: VehicleData) {
   };
 
   notify();
-  saveFile(serviceData);
+  persistServiceData();
 }
 
 export function updateVehicle(vId: string, changes: Partial<VehicleData>) {
@@ -67,7 +73,7 @@ export function updateVehicle(vId: string, changes: Partial<VehicleData>) {
   };
 
   notify();
-  saveFile(serviceData);
+  persistServiceData();
 }
 
 export function removeVehicle(vId: string) {
@@ -77,7 +83,7 @@ export function removeVehicle(vId: string) {
   };
 
   notify();
-  saveFile(serviceData);
+  persistServiceData();
 }
 
 export function addTaskItem(vId: string, data: TaskItem) {
@@ -94,7 +100,7 @@ export function addTaskItem(vId: string, data: TaskItem) {
   };
 
   notify();
-  saveFile(serviceData);
+  persistServiceData();
 }
 
 export function addMaintenanceItem(vId: string, data: MaintenanceItem) {
@@ -111,7 +117,7 @@ export function addMaintenanceItem(vId: string, data: MaintenanceItem) {
   };
 
   notify();
-  saveFile(serviceData);
+  persistServiceData();
 }
 
 export function updateTaskItem(
@@ -139,7 +145,7 @@ export function updateTaskItem(
   };
 
   notify();
-  saveFile(serviceData);
+  persistServiceData();
 }
 
 export function updateMaintenanceItem(
@@ -167,7 +173,7 @@ export function updateMaintenanceItem(
   };
 
   notify();
-  saveFile(serviceData);
+  persistServiceData();
 }
 
 export function removeTaskItem(vId: string, sId: string) {
@@ -184,7 +190,7 @@ export function removeTaskItem(vId: string, sId: string) {
   };
 
   notify();
-  saveFile(serviceData);
+  persistServiceData();
 }
 
 export function removeMaintenanceItem(vId: string, sId: string) {
@@ -203,5 +209,11 @@ export function removeMaintenanceItem(vId: string, sId: string) {
   };
 
   notify();
-  saveFile(serviceData);
+  persistServiceData();
+}
+
+function persistServiceData() {
+  saveFile(serviceData).catch((error: unknown) => {
+    console.error("Failed to save service data:", error);
+  });
 }

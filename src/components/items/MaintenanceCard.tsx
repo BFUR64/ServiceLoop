@@ -1,6 +1,5 @@
 import * as Progress from "@radix-ui/react-progress";
 import "./MaintenanceCard.scss";
-import type { IntervalTime } from "../../utils/FileHandler";
 import calculateDue from "../../utils/DueCalculator";
 import { convertMsToDay, convertToMs } from "../../utils/TimeCalculator";
 import ActionCard from "./ActionCard";
@@ -8,6 +7,7 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
+import type { IntervalTime } from "../../models/ServiceData";
 
 interface MaintenanceProp {
   vehicleId: string;

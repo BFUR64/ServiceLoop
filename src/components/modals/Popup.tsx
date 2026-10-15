@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import {
-  authorizeHandle,
-  handleAuthorized,
-  handleExists,
-  supportsFileSystemAPI,
-} from "../../utils/HandleState";
-import * as fileSystem from "../../utils/FileSystem";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import {
+  handleAuthorized,
+  handleExists,
+  supportsFileSystemAPI,
+} from "../../services/DirectoryAccess";
+
+import * as directoryAccess from "../../services/DirectoryAccess.ts";
 
 function Popup() {
   const [update, setUpdate] = useState(0);
@@ -30,7 +30,7 @@ function Popup() {
         setAuthorized(authorized);
 
         if (authorized) {
-          setDirectoryAvailable(await fileSystem.directoryAvailable());
+          setDirectoryAvailable(await directoryAccess.directoryAvailable());
         }
       }
 
@@ -69,7 +69,7 @@ function Popup() {
           <Button
             variant="contained"
             onClick={async () => {
-              await authorizeHandle();
+              await directoryAccess.authorizeHandle();
               setUpdate((v) => v + 1);
             }}
           >
@@ -94,7 +94,7 @@ function Popup() {
           <Button
             variant="contained"
             onClick={async () => {
-              await fileSystem.requestFolder();
+              await directoryAccess.requestFolder();
               setUpdate((v) => v + 1);
             }}
           >

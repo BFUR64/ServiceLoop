@@ -1,8 +1,6 @@
 import Stack from "@mui/material/Stack";
 import BackButton from "../items/BackButton";
 import Button from "@mui/material/Button";
-import { getHandle } from "../../utils/HandleState";
-import { requestFolder } from "../../utils/FileSystem";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
@@ -10,13 +8,14 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import { useEffect, useState } from "react";
+import { getHandleName, requestFolder } from "../../services/DirectoryAccess";
 
 export function Settings() {
-  const [directoryName, setDirectoryname] = useState(getHandle().name);
+  const [directoryName, setDirectoryname] = useState(getHandleName());
 
   useEffect(() => {
     const setNewDirectoryName = () => {
-      setDirectoryname(getHandle().name);
+      setDirectoryname(getHandleName());
     };
 
     document.addEventListener("app:folder-changed", setNewDirectoryName);

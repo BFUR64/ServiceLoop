@@ -1,5 +1,4 @@
-import { updateVehicle } from "../../../state/DataStorage";
-import type { VehicleData } from "../../../utils/FileHandler";
+import { updateVehicle } from "../../../state/ServiceDataMemory";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
@@ -11,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import ChatOutlined from "@mui/icons-material/ChatOutlined";
 import EditOutlined from "@mui/icons-material/EditOutlined";
 import { useTheme } from "@mui/material/styles";
+import type { VehicleData } from "../../../models/ServiceData";
 
 interface VehicleProp {
   vehicleId: string | undefined;
