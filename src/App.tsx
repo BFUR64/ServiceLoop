@@ -7,8 +7,8 @@ import Popup from "./components/modals/Popup";
 import "./App.scss";
 import Dashboard from "./components/pages/dashboard/Dashboard";
 import VehicleEditForm from "./components/pages/VehicleEditForm";
-import ItemEditForm from "./components/pages/item/ItemEditForm";
 import { Settings } from "./components/pages/Settings";
+import ItemEditForm from "./components/pages/item-editor/ItemEditForm";
 
 function App() {
   const location = useLocation();

@@ -4,7 +4,7 @@ import Stack from "@mui/material/Stack";
 import { useState } from "react";
 import TaskEditForm from "./TaskEditForm.tsx";
 import MaintenanceEditForm from "./MaintenanceEditForm.tsx";
-import BackButton from "../../items/BackButton.tsx";
+import BackButton from "../../shared/BackButton.tsx";
 
 function ItemEditForm() {
   const { vehicleId, itemId } = useParams();

@@ -6,7 +6,7 @@ import * as dataStorage from "../../state/ServiceDataMemory.ts";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import BackButton from "../items/BackButton.tsx";
+import BackButton from "../shared/BackButton.tsx";
 import { validateName } from "../../utils/Validator.ts";
 
 interface VehicleDraft {

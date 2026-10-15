@@ -11,7 +11,7 @@ import CheckOutlined from "@mui/icons-material/CheckOutlined";
 import EditOutlined from "@mui/icons-material/EditOutlined";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import * as dataStorage from "../../state/ServiceDataMemory";
+import * as dataStorage from "../../../state/ServiceDataMemory";
 
 interface ActionProp {
   vehicleId: string;

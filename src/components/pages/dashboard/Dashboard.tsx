@@ -2,12 +2,12 @@ import { useServiceData } from "../../../hooks/useServiceData";
 import VehicleCard from "./VehicleCard";
 import VehicleSelector from "./VehicleSelector";
 import { useNavigate, useParams } from "react-router-dom";
-import TaskCard from "../../items/TaskCard";
-import MaintenanceCard from "../../items/MaintenanceCard";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import TaskCard from "./TaskCard";
+import MaintenanceCard from "./MaintenanceCard";
 
 export function Dashboard() {
   const serviceData = useServiceData();
