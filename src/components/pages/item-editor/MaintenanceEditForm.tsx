@@ -88,7 +88,7 @@ function MaintenanceEditForm({
         onChange={(event) =>
           setDraft((previous) => ({
             ...previous,
-            note: event.target.value,
+            note: event.target.value || null,
           }))
         }
       />

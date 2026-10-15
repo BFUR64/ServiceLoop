@@ -13,6 +13,7 @@ interface MaintenanceProp {
   vehicleId: string;
   itemId: string;
   name: string;
+  note: string | null;
   dateServiced: string;
   mileageServiced: number;
   intervalKm: number | null;
@@ -25,6 +26,7 @@ function MaintenanceCard({
   vehicleId,
   itemId,
   name,
+  note: itemNote,
   dateServiced,
   mileageServiced,
   intervalKm,
@@ -69,6 +71,7 @@ function MaintenanceCard({
       <ActionCard
         vehicleId={vehicleId}
         itemId={itemId}
+        itemNote={itemNote}
         itemType="maintenance"
         priority={priority}
         information={

@@ -8,6 +8,7 @@ import Dashboard from "./components/pages/dashboard/Dashboard";
 import VehicleEditForm from "./components/pages/VehicleEditForm";
 import { Settings } from "./components/pages/Settings";
 import ItemEditForm from "./components/pages/item-editor/ItemEditForm";
+import Notes from "./components/modals/NotesPopup";
 
 function App() {
   const location = useLocation();
@@ -35,6 +36,8 @@ function App() {
 
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
+
+      <Notes />
     </Stack>
   );
 }

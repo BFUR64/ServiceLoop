@@ -7,10 +7,17 @@ interface TaskProp {
   vehicleId: string;
   itemId: string;
   name: string;
+  note: string | null;
   priority: boolean;
 }
 
-export function TaskCard({ vehicleId, itemId, name, priority }: TaskProp) {
+export function TaskCard({
+  vehicleId,
+  itemId,
+  note: itemNote,
+  name,
+  priority,
+}: TaskProp) {
   const theme = useTheme();
 
   return (
@@ -25,6 +32,7 @@ export function TaskCard({ vehicleId, itemId, name, priority }: TaskProp) {
       <ActionCard
         vehicleId={vehicleId}
         itemId={itemId}
+        itemNote={itemNote}
         itemType="task"
         priority={priority}
         information={<Typography>{name}</Typography>}

@@ -12,10 +12,12 @@ import EditOutlined from "@mui/icons-material/EditOutlined";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import * as dataStorage from "../../../state/ServiceDataMemory";
+import { setNote } from "../../../hooks/useNotePopup";
 
 interface ActionProp {
   vehicleId: string;
   itemId: string;
+  itemNote: string | null;
   itemType: "task" | "maintenance";
   priority: boolean;
   information: React.ReactNode;
@@ -24,6 +26,7 @@ interface ActionProp {
 function ActionCard({
   vehicleId,
   itemId,
+  itemNote,
   itemType,
   information,
   priority,
@@ -58,7 +61,7 @@ function ActionCard({
 
       <ButtonGroup variant="text" sx={{ alignItems: "center" }}>
         <Tooltip title="View note">
-          <Button>
+          <Button onClick={() => setNote(`${itemNote}`)}>
             <ChatOutlined
               sx={{
                 color: theme.palette.mode === "dark" ? "white" : "grey.600",

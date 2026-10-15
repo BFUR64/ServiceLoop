@@ -11,6 +11,7 @@ import ChatOutlined from "@mui/icons-material/ChatOutlined";
 import EditOutlined from "@mui/icons-material/EditOutlined";
 import { useTheme } from "@mui/material/styles";
 import type { VehicleData } from "../../../models/ServiceData";
+import { setNote } from "../../../hooks/useNotePopup";
 
 interface VehicleProp {
   vehicleId: string | undefined;
@@ -63,7 +64,9 @@ function VehicleCard({ vehicleId, vehicleSelected }: VehicleProp) {
             </Stack>
             <ButtonGroup variant="text" sx={{ alignItems: "start" }}>
               <Tooltip title="View note">
-                <Button>
+                <Button
+                  onClick={() => setNote(`${vehicleSelected.note ?? ""}`)}
+                >
                   <ChatOutlined
                     sx={{
                       color:

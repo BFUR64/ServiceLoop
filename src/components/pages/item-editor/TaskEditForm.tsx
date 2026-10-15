@@ -49,7 +49,7 @@ function TaskEditForm({ vehicleId, item, typeSwitcherProp }: TaskEditFormProp) {
         onChange={(event) =>
           setDraft((previous) => ({
             ...previous,
-            note: event.target.value,
+            note: event.target.value || null,
           }))
         }
       />

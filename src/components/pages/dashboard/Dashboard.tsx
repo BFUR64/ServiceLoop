@@ -68,6 +68,7 @@ export function Dashboard() {
                     vehicleId={vehicleId}
                     itemId={item.id}
                     name={item.name}
+                    note={item.note ?? ""}
                     priority={item.priority}
                   />
                 ))}
@@ -84,6 +85,7 @@ export function Dashboard() {
                     vehicleId={vehicleId}
                     itemId={item.id}
                     name={item.name}
+                    note={item.note ?? ""}
                     dateServiced={item.dateServiced}
                     mileageServiced={item.mileageServiced}
                     intervalKm={item.intervalKm}
