@@ -8,6 +8,7 @@ import TypeSwitcher from "./TypeSwitcher";
 import * as dataStorage from "../../../state/ServiceDataMemory.ts";
 import { validateName } from "../../../utils/InputUtils.ts";
 import type { TaskItem } from "../../../models/ServiceData.ts";
+import { useConfirmPopup } from "../../../hooks/useConfirmPopup.ts";
 
 interface TaskDraft {
   name: string;
@@ -27,6 +28,8 @@ function TaskEditForm({ vehicleId, item, typeSwitcherProp }: TaskEditFormProp) {
   }));
 
   const [nameMessage, setNameMessage] = useState("");
+
+  const [_, setText] = useConfirmPopup();
 
   const navigate = useNavigate();
 
@@ -90,7 +93,20 @@ function TaskEditForm({ vehicleId, item, typeSwitcherProp }: TaskEditFormProp) {
             variant="contained"
             color="error"
             onClick={() => {
-              dataStorage.removeTaskItem(vehicleId, item.id);
+              document.addEventListener(
+                "app:confirm-response",
+                (event) => {
+                  if (event.detail.confirmed) {
+                    dataStorage.removeTaskItem(vehicleId, item.id);
+                    navigate(`/dashboard/${vehicleId}`);
+                  }
+                },
+                { once: true },
+              );
+
+              setText(
+                `Are you sure you want to delete "${item.name}"? This cannot be undone.`,
+              );
             }}
           >
             Delete Item

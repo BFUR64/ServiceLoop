@@ -8,6 +8,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import BackButton from "../shared/BackButton.tsx";
 import { validateName, normalizeOdometer } from "../../utils/InputUtils.ts";
+import { useConfirmPopup } from "../../hooks/useConfirmPopup.ts";
 
 interface VehicleDraft {
   nickname: string;
@@ -42,6 +43,8 @@ function VehicleEditForm() {
   }));
 
   const [nameMessage, setNameMessage] = useState("");
+
+  const [_, setText] = useConfirmPopup();
 
   const navigate = useNavigate();
 
@@ -170,8 +173,20 @@ function VehicleEditForm() {
             variant="contained"
             color="error"
             onClick={() => {
-              dataStorage.removeVehicle(vehicle.id);
-              navigate("/dashboard");
+              document.addEventListener(
+                "app:confirm-response",
+                (event) => {
+                  if (event.detail.confirmed) {
+                    dataStorage.removeVehicle(vehicle.id);
+                    navigate("/dashboard");
+                  }
+                },
+                { once: true },
+              );
+
+              setText(
+                `Are you sure you want to delete "${vehicle.nickname}"? This cannot be undone.`,
+              );
             }}
           >
             Delete Vehicle

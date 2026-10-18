@@ -26,6 +26,7 @@ import type {
   MaintenanceItem,
   TimeUnit,
 } from "../../../models/ServiceData.ts";
+import { useConfirmPopup } from "../../../hooks/useConfirmPopup.ts";
 
 interface MaintenanceDraft {
   name: string;
@@ -66,6 +67,8 @@ function MaintenanceEditForm({
   );
 
   const [nameMessage, setNameMessage] = useState("");
+
+  const [_, setText] = useConfirmPopup();
 
   const navigate = useNavigate();
 
@@ -247,7 +250,20 @@ function MaintenanceEditForm({
             variant="contained"
             color="error"
             onClick={() => {
-              dataStorage.removeMaintenanceItem(vehicleId, item.id);
+              document.addEventListener(
+                "app:confirm-response",
+                (event) => {
+                  if (event.detail.confirmed) {
+                    dataStorage.removeMaintenanceItem(vehicleId, item.id);
+                    navigate(`/dashboard/${vehicleId}`);
+                  }
+                },
+                { once: true },
+              );
+
+              setText(
+                `Are you sure you want to delete "${item.name}"? This cannot be undone.`,
+              );
             }}
           >
             Delete Item

@@ -1,11 +1,11 @@
 import { useSyncExternalStore } from "react";
 
-let note: string | null = null;
+let text: string | null = null;
 
 const listeners: Set<() => void> = new Set<() => void>();
 
 export function useNotePopup() {
-  return [useSyncExternalStore(subscribe, getNote), setNote] as const;
+  return [useSyncExternalStore(subscribe, getText), setText] as const;
 }
 
 export function subscribe(listener: () => void) {
@@ -22,11 +22,11 @@ export function notify() {
   }
 }
 
-export function setNote(val: string | null) {
-  note = val;
+export function setText(val: string | null) {
+  text = val;
   notify();
 }
 
-export function getNote() {
-  return note;
+export function getText() {
+  return text;
 }

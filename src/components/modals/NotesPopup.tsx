@@ -6,17 +6,17 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 
 function Notes() {
-  const [note, setNote] = useNotePopup();
+  const [text, setText] = useNotePopup();
 
   return (
-    note !== null && (
+    text !== null && (
       <Dialog open>
         <DialogTitle>Note</DialogTitle>
 
-        <DialogContent>{note}</DialogContent>
+        <DialogContent>{text}</DialogContent>
 
         <DialogActions>
-          <Button variant="contained" onClick={() => setNote(null)}>
+          <Button variant="contained" onClick={() => setText(null)}>
             Close
           </Button>
         </DialogActions>

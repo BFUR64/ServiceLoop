@@ -9,6 +9,7 @@ import VehicleEditForm from "./components/pages/VehicleEditForm";
 import { Settings } from "./components/pages/Settings";
 import ItemEditForm from "./components/pages/item-editor/ItemEditForm";
 import Notes from "./components/modals/NotesPopup";
+import Confirm from "./components/modals/ConfirmPopup";
 
 function App() {
   const location = useLocation();
@@ -38,6 +39,7 @@ function App() {
       </Routes>
 
       <Notes />
+      <Confirm />
     </Stack>
   );
 }
