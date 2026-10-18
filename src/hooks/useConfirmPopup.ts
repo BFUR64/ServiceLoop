@@ -1,11 +1,12 @@
 import { useSyncExternalStore } from "react";
 
+let resolveConfirmation: ((value: boolean) => void) | null = null;
 let text: string | null = null;
 
 const listeners: Set<() => void> = new Set<() => void>();
 
 export function useConfirmPopup() {
-  return [useSyncExternalStore(subscribe, getText), setText] as const;
+  return useSyncExternalStore(subscribe, getText);
 }
 
 export function subscribe(listener: () => void) {
@@ -22,11 +23,26 @@ export function notify() {
   }
 }
 
-export function setText(val: string | null) {
-  text = val;
-  notify();
-}
-
 export function getText() {
   return text;
+}
+
+export async function confirmPopup(val: string) {
+  text = val;
+
+  const promise = new Promise<boolean>((resolve) => {
+    resolveConfirmation = resolve;
+  });
+
+  notify();
+
+  return promise;
+}
+
+export function resolveConfirmationPopup(confirmation: boolean) {
+  resolveConfirmation?.(confirmation);
+  resolveConfirmation = null;
+  text = null;
+
+  notify();
 }

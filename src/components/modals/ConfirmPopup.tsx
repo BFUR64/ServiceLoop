@@ -1,12 +1,15 @@
 import Dialog from "@mui/material/Dialog";
-import { useConfirmPopup } from "../../hooks/useConfirmPopup";
+import {
+  resolveConfirmationPopup,
+  useConfirmPopup,
+} from "../../hooks/useConfirmPopup";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 
 function Confirm() {
-  const [text, setText] = useConfirmPopup();
+  const text = useConfirmPopup();
 
   return (
     text !== null && (
@@ -18,35 +21,19 @@ function Confirm() {
         <DialogActions>
           <Button
             variant="outlined"
-            onClick={() => {
-              dispatch(true);
-              setText(null);
-            }}
+            onClick={() => resolveConfirmationPopup(true)}
           >
             Confirm
           </Button>
           <Button
             variant="contained"
-            onClick={() => {
-              dispatch(false);
-              setText(null);
-            }}
+            onClick={() => resolveConfirmationPopup(false)}
           >
             Cancel
           </Button>
         </DialogActions>
       </Dialog>
     )
-  );
-}
-
-function dispatch(confirmation: boolean) {
-  document.dispatchEvent(
-    new CustomEvent("app:confirm-response", {
-      detail: {
-        confirmed: confirmation,
-      },
-    }),
   );
 }
 
