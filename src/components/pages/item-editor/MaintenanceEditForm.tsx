@@ -123,7 +123,8 @@ function MaintenanceEditForm({
             <TextField
               sx={{ flex: 1 }}
               label="Mileage (km)"
-              type="number"
+              type="text"
+              inputMode="numeric"
               value={draft.mileageServiced}
               onChange={(event) =>
                 setDraft((previous) => ({
@@ -155,7 +156,8 @@ function MaintenanceEditForm({
         <Stack direction="row" spacing={2}>
           <TextField
             label="km"
-            type="number"
+            type="text"
+            inputMode="numeric"
             sx={{ flex: 1 }}
             value={draft.intervalKm || ""}
             onChange={(event) => {
@@ -163,7 +165,11 @@ function MaintenanceEditForm({
 
               setDraft((previous) => ({
                 ...previous,
-                intervalKm: nextValue === "" ? null : Number(nextValue),
+                intervalKm:
+                  nextValue === "" ||
+                  !Number.isFinite(Number.parseInt(nextValue))
+                    ? null
+                    : Number(nextValue),
               }));
             }}
           />
@@ -195,7 +201,8 @@ function MaintenanceEditForm({
 
             <TextField
               sx={{ flex: 1 }}
-              type="number"
+              type="text"
+              inputMode="numeric"
               value={draft.intervalTime.value ?? ""}
               onChange={(event) => {
                 const nextValue = event.target.value;
@@ -204,7 +211,11 @@ function MaintenanceEditForm({
                   ...previous,
                   intervalTime: {
                     ...previous.intervalTime,
-                    value: nextValue === "" ? null : Number(nextValue),
+                    value:
+                      nextValue === "" ||
+                      !Number.isFinite(Number.parseInt(nextValue))
+                        ? null
+                        : Number(nextValue),
                   },
                 }));
               }}
