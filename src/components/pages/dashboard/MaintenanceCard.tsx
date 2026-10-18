@@ -5,7 +5,6 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
 import type { IntervalTime } from "../../../models/ServiceData";
-import calculateDue from "../../../utils/DueCalculator";
 import { convertMsToDay, convertToMs } from "../../../utils/TimeCalculator";
 import ActionCard from "./ActionCard";
 
@@ -20,6 +19,7 @@ interface MaintenanceProp {
   intervalTime: IntervalTime;
   currentOdometer: number;
   priority: boolean;
+  progressBar: number;
 }
 
 function MaintenanceCard({
@@ -33,15 +33,8 @@ function MaintenanceCard({
   intervalTime,
   currentOdometer,
   priority,
+  progressBar,
 }: MaintenanceProp) {
-  const progressBar = calculateDue({
-    dateServiced,
-    mileageServiced,
-    intervalKm,
-    intervalTime,
-    currentOdometer,
-  });
-
   const kmLeft =
     intervalKm !== null ? mileageServiced + intervalKm - currentOdometer : null;
 

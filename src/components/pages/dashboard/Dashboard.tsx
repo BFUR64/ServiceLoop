@@ -8,6 +8,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import TaskCard from "./TaskCard";
 import MaintenanceCard from "./MaintenanceCard";
+import calculateDue from "../../../utils/DueCalculator";
 
 export function Dashboard() {
   const serviceData = useServiceData();
@@ -20,6 +21,25 @@ export function Dashboard() {
 
   const navigate = useNavigate();
 
+  const sortedItems = vehicleSelected?.maintenanceItems
+    .map((item) => ({
+      item,
+      due: calculateDue({
+        ...item,
+        currentOdometer: vehicleSelected.currentOdometer,
+      }),
+    }))
+    .sort((a, b) => {
+      const priorityDiff = Number(b.item.priority) - Number(a.item.priority);
+
+      if (priorityDiff !== 0) return priorityDiff;
+
+      const dueDiff = a.due - b.due;
+
+      if (dueDiff !== 0) return dueDiff;
+
+      return a.item.name.localeCompare(b.item.name);
+    });
   return (
     <>
       <Stack sx={{ gap: 1, p: 2 }}>
@@ -63,16 +83,19 @@ export function Dashboard() {
                   Task
                 </Typography>
                 <Stack spacing={2}>
-                  {vehicleSelected.taskItems.map((item) => (
-                    <TaskCard
-                      key={item.id}
-                      vehicleId={vehicleId}
-                      itemId={item.id}
-                      name={item.name}
-                      note={item.note ?? ""}
-                      priority={item.priority}
-                    />
-                  ))}
+                  {vehicleSelected.taskItems
+                    .toSorted((a, b) => Number(b.priority) - Number(a.priority))
+
+                    .map((item) => (
+                      <TaskCard
+                        key={item.id}
+                        vehicleId={vehicleId}
+                        itemId={item.id}
+                        name={item.name}
+                        note={item.note ?? ""}
+                        priority={item.priority}
+                      />
+                    ))}
                 </Stack>
               </>
             )}
@@ -82,7 +105,7 @@ export function Dashboard() {
                   Maintenance
                 </Typography>
                 <Stack spacing={2}>
-                  {vehicleSelected.maintenanceItems.map((item) => (
+                  {sortedItems?.map(({ item, due }) => (
                     <MaintenanceCard
                       key={item.id}
                       vehicleId={vehicleId}
@@ -95,6 +118,7 @@ export function Dashboard() {
                       intervalTime={item.intervalTime}
                       currentOdometer={vehicleSelected.currentOdometer}
                       priority={item.priority}
+                      progressBar={due}
                     />
                   ))}
                 </Stack>
