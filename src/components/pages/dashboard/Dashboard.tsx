@@ -57,45 +57,49 @@ export function Dashboard() {
               scrollbarGutter: "stable both-edges",
             }}
           >
-            <Stack>
-              <Typography variant="h3" sx={{ fontSize: "1.15rem" }}>
-                Task
-              </Typography>
-              <Stack spacing={2}>
-                {vehicleSelected.taskItems.map((item) => (
-                  <TaskCard
-                    key={item.id}
-                    vehicleId={vehicleId}
-                    itemId={item.id}
-                    name={item.name}
-                    note={item.note ?? ""}
-                    priority={item.priority}
-                  />
-                ))}
-              </Stack>
-            </Stack>
-            <Stack>
-              <Typography variant="h3" sx={{ fontSize: "1.15rem" }}>
-                Maintenance
-              </Typography>
-              <Stack spacing={2}>
-                {vehicleSelected.maintenanceItems.map((item) => (
-                  <MaintenanceCard
-                    key={item.id}
-                    vehicleId={vehicleId}
-                    itemId={item.id}
-                    name={item.name}
-                    note={item.note ?? ""}
-                    dateServiced={item.dateServiced}
-                    mileageServiced={item.mileageServiced}
-                    intervalKm={item.intervalKm}
-                    intervalTime={item.intervalTime}
-                    currentOdometer={vehicleSelected.currentOdometer}
-                    priority={item.priority}
-                  />
-                ))}
-              </Stack>
-            </Stack>
+            {vehicleSelected.taskItems.length > 0 && (
+              <>
+                <Typography variant="h3" sx={{ fontSize: "1.15rem" }}>
+                  Task
+                </Typography>
+                <Stack spacing={2}>
+                  {vehicleSelected.taskItems.map((item) => (
+                    <TaskCard
+                      key={item.id}
+                      vehicleId={vehicleId}
+                      itemId={item.id}
+                      name={item.name}
+                      note={item.note ?? ""}
+                      priority={item.priority}
+                    />
+                  ))}
+                </Stack>
+              </>
+            )}
+            {vehicleSelected.maintenanceItems.length > 0 && (
+              <>
+                <Typography variant="h3" sx={{ fontSize: "1.15rem" }}>
+                  Maintenance
+                </Typography>
+                <Stack spacing={2}>
+                  {vehicleSelected.maintenanceItems.map((item) => (
+                    <MaintenanceCard
+                      key={item.id}
+                      vehicleId={vehicleId}
+                      itemId={item.id}
+                      name={item.name}
+                      note={item.note ?? ""}
+                      dateServiced={item.dateServiced}
+                      mileageServiced={item.mileageServiced}
+                      intervalKm={item.intervalKm}
+                      intervalTime={item.intervalTime}
+                      currentOdometer={vehicleSelected.currentOdometer}
+                      priority={item.priority}
+                    />
+                  ))}
+                </Stack>
+              </>
+            )}
           </Stack>
         </>
       )}
