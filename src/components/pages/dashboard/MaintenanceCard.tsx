@@ -1,4 +1,3 @@
-import * as Progress from "@radix-ui/react-progress";
 import "./MaintenanceCard.scss";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
@@ -7,6 +6,7 @@ import { useTheme } from "@mui/material/styles";
 import type { IntervalTime } from "../../../models/ServiceData";
 import { convertMsToDay, convertToMs } from "../../../utils/TimeCalculator";
 import ActionCard from "./ActionCard";
+import LinearProgress from "@mui/material/LinearProgress";
 
 interface MaintenanceProp {
   vehicleId: string;
@@ -59,7 +59,6 @@ function MaintenanceCard({
         border: 1,
         borderColor: theme.palette.mode === "dark" ? "grey.700" : "grey.400",
       }}
-      className={`maintenance-card maintenance-card--${returnUrgency(progressBar)}`}
     >
       <ActionCard
         vehicleId={vehicleId}
@@ -80,14 +79,25 @@ function MaintenanceCard({
         }
       />
 
-      <Progress.Root className="maintenance-card__progress" value={progressBar}>
-        <Progress.Indicator
-          className="maintenance-card__progress-indicator"
-          style={{
-            transform: `translateX(-${100 - progressBar}%)`,
-          }}
-        />
-      </Progress.Root>
+      <LinearProgress
+        variant="determinate"
+        value={progressBar}
+        sx={{
+          m: 1,
+          borderRadius: 1,
+          height: 6,
+          backgroundColor: "action.disabledBackground",
+
+          "& .MuiLinearProgress-bar": {
+            backgroundColor:
+              progressBar >= 60
+                ? "#5fbe00"
+                : progressBar >= 25
+                  ? "#cd7100"
+                  : "#e80000",
+          },
+        }}
+      />
     </Paper>
   );
 }
@@ -98,14 +108,6 @@ function returnFormattedTime(value: number) {
   }
 
   return "days";
-}
-
-type Urgency = "ok" | "warn" | "danger";
-
-function returnUrgency(value: number): Urgency {
-  if (value >= 60) return "ok";
-  if (value >= 25) return "warn";
-  return "danger";
 }
 
 export default MaintenanceCard;
