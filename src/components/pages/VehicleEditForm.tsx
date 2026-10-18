@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import BackButton from "../shared/BackButton.tsx";
-import { validateName } from "../../utils/Validator.ts";
+import { validateName, normalizeOdometer } from "../../utils/InputUtils.ts";
 
 interface VehicleDraft {
   nickname: string;
@@ -121,12 +121,13 @@ function VehicleEditForm() {
 
         <TextField
           label="Odometer (km)"
-          type="number"
+          type="text"
+          inputMode="numeric"
           value={draft.currentOdometer}
           onChange={(event) =>
             setDraft({
               ...draft,
-              currentOdometer: Number(event.currentTarget.value),
+              currentOdometer: normalizeOdometer(event.currentTarget.value),
             })
           }
         />

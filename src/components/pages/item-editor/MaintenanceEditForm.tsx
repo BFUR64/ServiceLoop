@@ -20,7 +20,7 @@ import dayjs from "dayjs";
 
 import TypeSwitcher from "./TypeSwitcher";
 import * as dataStorage from "../../../state/ServiceDataMemory.ts";
-import { validateName } from "../../../utils/Validator.ts";
+import { validateName } from "../../../utils/InputUtils.ts";
 import type {
   IntervalTime,
   MaintenanceItem,

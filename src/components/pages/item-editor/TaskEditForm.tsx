@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import type { TypeSwitcherProp } from "./TypeSwitcher";
 import TypeSwitcher from "./TypeSwitcher";
 import * as dataStorage from "../../../state/ServiceDataMemory.ts";
-import { validateName } from "../../../utils/Validator.ts";
+import { validateName } from "../../../utils/InputUtils.ts";
 import type { TaskItem } from "../../../models/ServiceData.ts";
 
 interface TaskDraft {

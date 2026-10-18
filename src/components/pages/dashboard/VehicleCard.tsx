@@ -12,6 +12,7 @@ import EditOutlined from "@mui/icons-material/EditOutlined";
 import { useTheme } from "@mui/material/styles";
 import type { VehicleData } from "../../../models/ServiceData";
 import { setNote } from "../../../hooks/useNotePopup";
+import { normalizeOdometer } from "../../../utils/InputUtils";
 
 interface VehicleProp {
   vehicleId: string | undefined;
@@ -51,14 +52,14 @@ function VehicleCard({ vehicleId, vehicleSelected }: VehicleProp) {
               </Typography>
               <TextField
                 label="km"
+                type="text"
+                inputMode="numeric"
                 variant="standard"
                 value={vehicleSelected.currentOdometer}
                 onChange={(event) => {
-                  const value = Number(event.target.value);
-
-                  if (Number.isFinite(value)) {
-                    updateVehicle(vehicleId, { currentOdometer: value });
-                  }
+                  updateVehicle(vehicleId, {
+                    currentOdometer: normalizeOdometer(event.target.value),
+                  });
                 }}
               />
             </Stack>
