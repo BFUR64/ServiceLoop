@@ -55,8 +55,13 @@ function ActionCard({
       >
         <Tooltip title="Mark as finished">
           <IconButton
-            onClick={() =>
-              markFinished({ vehicleId, currentOdometer, itemId, itemType })
+            onClick={async () =>
+              await markFinished({
+                vehicleId,
+                currentOdometer,
+                itemId,
+                itemType,
+              })
             }
           >
             <CheckOutlined />

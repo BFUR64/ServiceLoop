@@ -9,6 +9,7 @@ import { useState } from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { deleteDataFromIdb } from "../../state/ServiceDataStore";
+import { confirmPopup } from "../../hooks/useConfirmPopup";
 
 export function Settings() {
   const currentPreference =
@@ -45,7 +46,15 @@ export function Settings() {
         <Button
           variant="contained"
           color="error"
-          onClick={() => deleteDataFromIdb()}
+          onClick={async () => {
+            const confirmed = await confirmPopup(
+              'This will delete ALL of the data you have. Make sure to back it up via "Download JSON". This CANNOT be undone.',
+            );
+
+            if (confirmed) {
+              deleteDataFromIdb();
+            }
+          }}
         >
           Clear App Data
         </Button>
