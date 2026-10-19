@@ -13,18 +13,23 @@ import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import * as dataStorage from "../../../state/ServiceDataMemory";
 import { setText } from "../../../hooks/useNotePopup";
+import type { ItemType } from "../../../models/ServiceData";
+import * as serviceData from "../../../state/ServiceDataMemory";
+import { confirmPopup } from "../../../hooks/useConfirmPopup";
 
 interface ActionProp {
   vehicleId: string;
+  currentOdometer: number;
   itemId: string;
   itemNote: string | null;
-  itemType: "task" | "maintenance";
+  itemType: ItemType;
   priority: boolean;
   information: React.ReactNode;
 }
 
 function ActionCard({
   vehicleId,
+  currentOdometer,
   itemId,
   itemNote,
   itemType,
@@ -49,7 +54,11 @@ function ActionCard({
         sx={{ alignItems: "center", minWidth: 0 }}
       >
         <Tooltip title="Mark as finished">
-          <IconButton>
+          <IconButton
+            onClick={() =>
+              markFinished({ vehicleId, currentOdometer, itemId, itemType })
+            }
+          >
             <CheckOutlined />
           </IconButton>
         </Tooltip>
@@ -112,6 +121,41 @@ function ActionCard({
       </ButtonGroup>
     </Stack>
   );
+}
+
+interface MarkFinishedProp {
+  vehicleId: string;
+  currentOdometer: number;
+  itemId: string;
+  itemType: ItemType;
+}
+
+async function markFinished({
+  vehicleId,
+  currentOdometer,
+  itemId,
+  itemType,
+}: MarkFinishedProp) {
+  if (itemType === "task") {
+    const confirmed = await confirmPopup(
+      "Delete this task? This action cannot be undone.",
+    );
+
+    if (confirmed) {
+      serviceData.removeTaskItem(vehicleId, itemId);
+    }
+  } else {
+    const confirmed = await confirmPopup(
+      "Mark this maintenance item as serviced? This will record the current date and odometer reading.",
+    );
+
+    if (confirmed) {
+      serviceData.updateMaintenanceItem(vehicleId, itemId, {
+        dateServiced: new Date().toISOString(),
+        mileageServiced: currentOdometer,
+      });
+    }
+  }
 }
 
 export default ActionCard;

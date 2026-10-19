@@ -90,6 +90,7 @@ export function Dashboard() {
                       <TaskCard
                         key={item.id}
                         vehicleId={vehicleId}
+                        currentOdometer={vehicleSelected.currentOdometer}
                         itemId={item.id}
                         name={item.name}
                         note={item.note ?? ""}

@@ -5,6 +5,7 @@ import ActionCard from "./ActionCard";
 
 interface TaskProp {
   vehicleId: string;
+  currentOdometer: number;
   itemId: string;
   name: string;
   note: string | null;
@@ -13,8 +14,9 @@ interface TaskProp {
 
 export function TaskCard({
   vehicleId,
+  currentOdometer,
   itemId,
-  note: itemNote,
+  note,
   name,
   priority,
 }: TaskProp) {
@@ -31,8 +33,9 @@ export function TaskCard({
     >
       <ActionCard
         vehicleId={vehicleId}
+        currentOdometer={currentOdometer}
         itemId={itemId}
-        itemNote={itemNote}
+        itemNote={note}
         itemType="task"
         priority={priority}
         information={<Typography>{name}</Typography>}

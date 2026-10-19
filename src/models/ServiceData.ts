@@ -49,3 +49,5 @@ export const emptyServiceData: ServiceData = {
   revision: 1,
   vehicles: [],
 };
+
+export type ItemType = "task" | "maintenance";

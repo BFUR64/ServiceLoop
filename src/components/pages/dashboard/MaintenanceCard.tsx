@@ -62,6 +62,7 @@ function MaintenanceCard({
     >
       <ActionCard
         vehicleId={vehicleId}
+        currentOdometer={currentOdometer}
         itemId={itemId}
         itemNote={itemNote}
         itemType="maintenance"
