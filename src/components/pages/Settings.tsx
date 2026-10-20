@@ -5,11 +5,17 @@ import FormLabel from "@mui/material/FormLabel";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { deleteDataFromIdb } from "../../state/ServiceDataStore";
 import { confirmPopup } from "../../hooks/useConfirmPopup";
+import {
+  getHandleName,
+  requestFolder,
+  supportsFileSystemAPI,
+} from "../../fs-adapters/fs-api/DirectoryAccess";
+import { TextField } from "@mui/material";
 
 export function Settings() {
   const currentPreference =
@@ -17,9 +23,47 @@ export function Settings() {
 
   const [themePreference, setThemePreference] = useState(currentPreference);
 
+  const [directoryName, setDirectoryname] = useState(getHandleName());
+
+  useEffect(() => {
+    const setNewDirectoryName = () => {
+      setDirectoryname(getHandleName());
+    };
+
+    document.addEventListener("app:folder-changed", setNewDirectoryName);
+
+    return () => {
+      document.removeEventListener("app:folder-changed", setNewDirectoryName);
+    };
+  }, []);
+
   return (
     <Stack spacing={2} sx={{ padding: 2 }}>
       <BackButton vehicle={undefined} />
+
+      <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+        <TextField
+          value={`📁 ${directoryName}`}
+          variant="outlined"
+          disabled
+        ></TextField>
+
+        <Button
+          variant="contained"
+          disabled={!supportsFileSystemAPI()}
+          onClick={async () => {
+            const confirmed = await confirmPopup(
+              "Are you sure you want to change directories? This will clear the CURRENT SESSION of your data!",
+            );
+
+            if (confirmed) {
+              requestFolder();
+            }
+          }}
+        >
+          Change directory
+        </Button>
+      </Stack>
 
       <FormControl>
         <FormLabel>Theme</FormLabel>

@@ -11,9 +11,16 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import AppThemeProvider from "./services/AppThemeProvider.tsx";
+import { initHandle } from "./fs-adapters/fs-api/DirectoryAccess.ts";
+import { initFolderChangeListener } from "./services/FolderChangeListener.ts";
+import { initFileUpdaterListener } from "./services/FileUpdater.ts";
+
+await initHandle();
+await loadData();
 
 initServiceDataMemoryListener();
-await loadData();
+initFolderChangeListener();
+initFileUpdaterListener();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
