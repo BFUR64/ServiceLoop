@@ -13,7 +13,6 @@ import { confirmPopup } from "../../hooks/useConfirmPopup";
 import {
   getHandleName,
   handleFolderSelection,
-  requestFolder,
   supportsFileSystemAPI,
 } from "../../fs-adapters/fs-api/DirectoryAccess";
 import { TextField } from "@mui/material";
