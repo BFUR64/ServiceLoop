@@ -19,7 +19,11 @@ export function getHandle() {
 }
 
 export function getHandleName() {
-  return getHandle().name;
+  if (handleExists()) {
+    return getHandle().name;
+  } else {
+    return "Not Supported";
+  }
 }
 
 export async function setHandle(newHandle: FileSystemDirectoryHandle) {
