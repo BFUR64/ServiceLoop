@@ -5,7 +5,7 @@ import { getServiceData } from "../state/ServiceDataMemory";
 export function initFileUpdaterListener() {
   if (supportsFileSystemAPI()) {
     document.addEventListener("app:authorization-changed", (event) => {
-      if (event.detail.authorized) {
+      if (event.detail.authorized === "granted") {
         setInterval(async () => {
           await saveFile(getServiceData());
         }, 1000);
