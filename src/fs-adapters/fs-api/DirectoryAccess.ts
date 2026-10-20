@@ -14,7 +14,7 @@ let handle: FileSystemDirectoryHandle | undefined = undefined;
  *
  * @throws If the IndexedDB operation fails.
  */
-export async function initHandle() {
+export async function initHandle(): Promise<void> {
   handle = await get(DB_KEY);
 }
 
@@ -33,7 +33,7 @@ export function handleExists(): boolean {
  * @returns The current directory handle.
  * @throws {DOMException} If no directory handle is available.
  */
-export function getHandle() {
+export function getHandle(): FileSystemDirectoryHandle {
   if (!handle) {
     throw new DOMException("Handle does not exist", "InvalidStateError");
   }
@@ -90,7 +90,7 @@ export async function handleAuthorized(): Promise<boolean> {
  * @throws {DOMException} If no directory handle is available.
  * @throws If the browser's permission request fails.
  */
-export async function authorizeHandle() {
+export async function authorizeHandle(): Promise<void> {
   const handle = getHandle();
 
   document.dispatchEvent(
@@ -110,7 +110,7 @@ export async function authorizeHandle() {
  * @throws {DOMException} If the picker is cancelled or blocked by the browser.
  * @throws If persisting the selected handle fails.
  */
-export async function requestFolder() {
+export async function requestFolder(): Promise<void> {
   await setHandle(await window.showDirectoryPicker({ mode: "readwrite" }));
   document.dispatchEvent(new Event("app:folder-changed"));
 }
@@ -124,7 +124,7 @@ export async function requestFolder() {
  * @remarks Unexpected errors are logged to the console. Errors are handled
  * here rather than propagated to the caller.
  */
-export async function handleFolderSelection() {
+export async function handleFolderSelection(): Promise<void> {
   try {
     await requestFolder();
   } catch (error) {
