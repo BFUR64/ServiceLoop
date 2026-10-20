@@ -75,7 +75,14 @@ function ActionCard({
 
       <ButtonGroup variant="text" sx={{ alignItems: "center" }}>
         <Tooltip title="View note">
-          <Button onClick={() => setText(`${itemNote}`)}>
+          <Button
+            onClick={() => {
+              const toPrint =
+                itemNote === "" ? "Add a note to see it here." : itemNote;
+
+              setText(`${toPrint}`);
+            }}
+          >
             <ChatOutlined
               sx={{
                 color: theme.palette.mode === "dark" ? "white" : "grey.600",

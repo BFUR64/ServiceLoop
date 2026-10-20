@@ -13,6 +13,7 @@ import { visuallyHidden } from "@mui/utils";
 import { exportJSON, importJSON } from "../../fs-adapters/Json";
 import { saveToIdb } from "../../state/ServiceDataStore";
 import { useServiceData } from "../../hooks/useServiceData";
+import { setText } from "../../hooks/useNotePopup";
 
 interface NavProp {
   isPrimary: boolean;
@@ -54,6 +55,8 @@ export function Nav({ isPrimary = false }: NavProp) {
                     if (file != null) {
                       saveToIdb(await importJSON(file));
                     }
+
+                    setText(`File "${file?.name}" imported!`);
                   }}
                 />
               </IconButton>
