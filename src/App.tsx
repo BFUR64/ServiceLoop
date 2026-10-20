@@ -11,6 +11,7 @@ import ItemEditForm from "./components/pages/item-editor/ItemEditForm";
 import Notes from "./components/modals/NotesPopup";
 import Confirm from "./components/modals/ConfirmPopup";
 import FSPopup from "./components/modals/FSPopup";
+import Toast from "./components/modals/Toast";
 
 function App() {
   const location = useLocation();
@@ -42,6 +43,7 @@ function App() {
       <Notes />
       <Confirm />
       <FSPopup />
+      <Toast />
     </Stack>
   );
 }

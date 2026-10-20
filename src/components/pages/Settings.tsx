@@ -13,7 +13,7 @@ import { confirmPopup } from "../../hooks/useConfirmPopup";
 import {
   getHandleName,
   handleFolderSelection,
-  supportsFileSystemAPI,
+  SUPPORTS_FS,
 } from "../../fs-adapters/fs-api/DirectoryAccess";
 import { TextField } from "@mui/material";
 import { setPaused } from "../../services/FileUpdater";
@@ -51,7 +51,7 @@ export function Settings() {
 
         <Button
           variant="contained"
-          disabled={!supportsFileSystemAPI()}
+          disabled={!SUPPORTS_FS}
           onClick={async () => {
             const confirmed = await confirmPopup(
               "Are you sure you want to change directories? This will clear the CURRENT SESSION of your data!",

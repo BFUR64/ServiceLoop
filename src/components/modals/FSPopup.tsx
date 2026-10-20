@@ -35,7 +35,7 @@ function FSPopup() {
     checkAuthorization();
   }, [update]);
 
-  if (!directoryAccess.supportsFileSystemAPI()) {
+  if (!directoryAccess.SUPPORTS_FS) {
     return null;
   }
 

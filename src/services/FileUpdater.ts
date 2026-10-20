@@ -1,4 +1,4 @@
-import { supportsFileSystemAPI } from "../fs-adapters/fs-api/DirectoryAccess";
+import { SUPPORTS_FS } from "../fs-adapters/fs-api/DirectoryAccess";
 import { FILE_NAME, saveFile } from "../fs-adapters/fs-api/FileAccess";
 import { getServiceData } from "../state/ServiceDataMemory";
 
@@ -7,7 +7,7 @@ let paused = false;
 let saving = false;
 
 export function initFileUpdaterListener() {
-  if (supportsFileSystemAPI()) {
+  if (SUPPORTS_FS) {
     document.addEventListener("app:authorization-changed", (event) => {
       if (event.detail.authorized === "granted" && !initialized) {
         initialized = true;
