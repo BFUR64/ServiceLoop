@@ -41,7 +41,7 @@ export function supportsFileSystemAPI(): boolean {
 
 export async function handleAuthorized(): Promise<boolean> {
   if (!handle) {
-    throw new DOMException("Handle does not exist", "InvalidStateException");
+    throw new DOMException("Handle does not exist", "InvalidStateError");
   }
 
   return (await handle.queryPermission({ mode: "readwrite" })) === "granted";
@@ -49,7 +49,7 @@ export async function handleAuthorized(): Promise<boolean> {
 
 export async function authorizeHandle() {
   if (!handle) {
-    throw new DOMException("Handle does not exist", "InvalidStateException");
+    throw new DOMException("Handle does not exist", "InvalidStateError");
   }
 
   document.dispatchEvent(

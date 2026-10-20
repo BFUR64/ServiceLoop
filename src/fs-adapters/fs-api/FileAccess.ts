@@ -11,7 +11,7 @@ export async function loadFile(): Promise<ServiceData> {
   if (!((await handleAuthorized()) && (await directoryAvailable()))) {
     throw new DOMException(
       "Not authorized / Directory does not exist",
-      "InvalidStateException",
+      "InvalidStateError",
     );
   }
 
@@ -39,7 +39,7 @@ export async function saveFile(data: ServiceData) {
   if (!((await handleAuthorized()) && (await directoryAvailable()))) {
     throw new DOMException(
       "Not authorized / Directory does not exist",
-      "InvalidStateException",
+      "InvalidStateError",
     );
   }
 
