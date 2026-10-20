@@ -14,6 +14,7 @@ import { exportJSON, importJSON } from "../../fs-adapters/Json";
 import { saveToIdb } from "../../state/ServiceDataStore";
 import { useServiceData } from "../../hooks/useServiceData";
 import { setText } from "../../hooks/useNotePopup";
+import { FILE_NAME } from "../../fs-adapters/fs-api/FileAccess";
 
 interface NavProp {
   isPrimary: boolean;
@@ -36,9 +37,7 @@ export function Nav({ isPrimary = false }: NavProp) {
         {isPrimary && (
           <Stack direction="row" spacing={2}>
             <Tooltip title="Download JSON">
-              <IconButton
-                onClick={() => exportJSON(serviceData, "service-loop.json")}
-              >
+              <IconButton onClick={() => exportJSON(serviceData, FILE_NAME)}>
                 <FileDownloadIcon />
               </IconButton>
             </Tooltip>

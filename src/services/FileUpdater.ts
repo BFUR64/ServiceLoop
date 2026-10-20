@@ -1,5 +1,5 @@
 import { supportsFileSystemAPI } from "../fs-adapters/fs-api/DirectoryAccess";
-import { saveFile } from "../fs-adapters/fs-api/FileAccess";
+import { FILE_NAME, saveFile } from "../fs-adapters/fs-api/FileAccess";
 import { getServiceData } from "../state/ServiceDataMemory";
 
 let initialized = false;
@@ -20,7 +20,7 @@ export function initFileUpdaterListener() {
           try {
             await saveFile(getServiceData());
           } catch (error) {
-            console.error("Failed to update service-loop.json:", error);
+            console.error(`Failed to update ${FILE_NAME}:`, error);
           } finally {
             saving = false;
           }

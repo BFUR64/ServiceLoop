@@ -5,6 +5,8 @@ import {
   handleAuthorized,
 } from "./DirectoryAccess";
 
+export const FILE_NAME = "service-loop.json";
+
 export async function loadFile(): Promise<ServiceData> {
   const handle = getHandle();
 
@@ -16,7 +18,7 @@ export async function loadFile(): Promise<ServiceData> {
   }
 
   try {
-    const fileHandle = await handle.getFileHandle("service-loop.json");
+    const fileHandle = await handle.getFileHandle(FILE_NAME);
     const file = await fileHandle.getFile();
     const text = await file.text();
 
@@ -25,7 +27,11 @@ export async function loadFile(): Promise<ServiceData> {
     // We finished searching and never found the file
     // Create a default file for the next `loadFile()` call
     if (error instanceof DOMException && error.name === "NotFoundError") {
-      await saveFile(emptyServiceData);
+      try {
+        await saveFile(emptyServiceData);
+      } catch (saveError) {
+        console.error(`Failed to update ${FILE_NAME}:`, saveError);
+      }
       return emptyServiceData;
     }
 
@@ -43,7 +49,7 @@ export async function saveFile(data: ServiceData) {
     );
   }
 
-  const fileHandle = await handle.getFileHandle("service-loop.json", {
+  const fileHandle = await handle.getFileHandle(FILE_NAME, {
     create: true,
   });
 
