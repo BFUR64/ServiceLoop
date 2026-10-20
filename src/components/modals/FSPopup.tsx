@@ -5,6 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import * as directoryAccess from "../../fs-adapters/fs-api/DirectoryAccess";
+import { setPaused } from "../../services/FileUpdater";
 
 function FSPopup() {
   const [update, setUpdate] = useState(0);
@@ -79,7 +80,10 @@ function FSPopup() {
           <Button
             variant="contained"
             onClick={async () => {
-              await directoryAccess.requestFolder();
+              setPaused(true);
+              await directoryAccess.handleFolderSelection();
+              setPaused(false);
+
               setUpdate((v) => v + 1);
             }}
           >

@@ -2,14 +2,34 @@ import { supportsFileSystemAPI } from "../fs-adapters/fs-api/DirectoryAccess";
 import { saveFile } from "../fs-adapters/fs-api/FileAccess";
 import { getServiceData } from "../state/ServiceDataMemory";
 
+let initialized = false;
+let paused = false;
+let saving = false;
+
 export function initFileUpdaterListener() {
   if (supportsFileSystemAPI()) {
     document.addEventListener("app:authorization-changed", (event) => {
-      if (event.detail.authorized === "granted") {
+      if (event.detail.authorized === "granted" && !initialized) {
+        initialized = true;
+
         setInterval(async () => {
-          await saveFile(getServiceData());
+          if (paused || saving) return;
+
+          saving = true;
+
+          try {
+            await saveFile(getServiceData());
+          } catch (error) {
+            console.error("Failed to update service-loop.json:", error);
+          } finally {
+            saving = false;
+          }
         }, 1000);
       }
     });
   }
+}
+
+export function setPaused(val: boolean) {
+  paused = val;
 }

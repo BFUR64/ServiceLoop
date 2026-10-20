@@ -66,6 +66,19 @@ export async function requestFolder() {
   document.dispatchEvent(new Event("app:folder-changed"));
 }
 
+export async function handleFolderSelection() {
+  try {
+    await requestFolder();
+  } catch (error) {
+    if (error instanceof DOMException && error.name === "AbortError") {
+      // The user cancelled the folder picker.
+      return;
+    }
+
+    console.error("Failed to select folder:", error);
+  }
+}
+
 export async function directoryAvailable(): Promise<boolean> {
   const handle = getHandle();
 

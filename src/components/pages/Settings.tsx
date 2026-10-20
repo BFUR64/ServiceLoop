@@ -12,10 +12,12 @@ import { deleteDataFromIdb } from "../../state/ServiceDataStore";
 import { confirmPopup } from "../../hooks/useConfirmPopup";
 import {
   getHandleName,
+  handleFolderSelection,
   requestFolder,
   supportsFileSystemAPI,
 } from "../../fs-adapters/fs-api/DirectoryAccess";
 import { TextField } from "@mui/material";
+import { setPaused } from "../../services/FileUpdater";
 
 export function Settings() {
   const currentPreference =
@@ -57,7 +59,9 @@ export function Settings() {
             );
 
             if (confirmed) {
-              requestFolder();
+              setPaused(true);
+              await handleFolderSelection();
+              setPaused(false);
             }
           }}
         >
