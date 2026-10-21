@@ -14,7 +14,22 @@ import { saveToIdb } from "../state/ServiceDataStore";
 let paused = false;
 let saving = false;
 
-export function initFileUpdaterListener() {
+/**
+ * Initializes a periodic listener that synchronizes service data between
+ * IndexedDB and the file system based on their revision numbers.
+ *
+ * Every second, if the File System Access API is supported, permission is
+ * granted, and the target directory is available, the listener compares
+ * the revisions of the file system data and in-memory data. The data source
+ * with the higher revision overwrites the other.
+ *
+ * Synchronization is skipped while paused or while another synchronization
+ * operation is in progress. Errors are logged without terminating future
+ * synchronization attempts.
+ *
+ * Does nothing if the File System Access API is unsupported.
+ */
+export function initFileUpdaterListener(): void {
   if (SUPPORTS_FS) {
     setInterval(async () => {
       if (!((await handleAuthorized()) && (await directoryAvailable()))) return;
@@ -41,6 +56,12 @@ export function initFileUpdaterListener() {
   }
 }
 
+/**
+ * Pauses or resumes file synchronization. Does not interrupt ongoing
+ * synchronization operations.
+ *
+ * @param val - Whether synchronization should be paused.
+ */
 export function setPaused(val: boolean) {
   paused = val;
 }
