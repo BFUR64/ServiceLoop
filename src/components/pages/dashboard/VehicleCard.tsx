@@ -13,7 +13,6 @@ import { useTheme } from "@mui/material/styles";
 import type { VehicleData } from "../../../models/ServiceData";
 import { setText } from "../../../hooks/useNotePopup";
 import { normalizeOdometer } from "../../../utils/InputUtils";
-import { useState } from "react";
 
 interface VehicleProp {
   vehicleId: string | undefined;
@@ -23,10 +22,6 @@ interface VehicleProp {
 function VehicleCard({ vehicleId, vehicleSelected }: VehicleProp) {
   const navigate = useNavigate();
   const theme = useTheme();
-
-  const [odometerDraft, setOdometerDraft] = useState(
-    vehicleSelected?.currentOdometer ?? 0,
-  );
 
   return (
     <Paper
@@ -56,14 +51,14 @@ function VehicleCard({ vehicleId, vehicleSelected }: VehicleProp) {
                   (vehicleSelected.year ?? "--")}
               </Typography>
               <TextField
+                key={vehicleId}
                 label="km"
                 type="text"
                 inputMode="numeric"
                 variant="standard"
-                value={odometerDraft}
+                value={vehicleSelected?.currentOdometer ?? 0}
                 onChange={(event) => {
                   const value = normalizeOdometer(event.target.value);
-                  setOdometerDraft(value);
                   saveDebouncedOdometer(vehicleId, value);
                 }}
               />
