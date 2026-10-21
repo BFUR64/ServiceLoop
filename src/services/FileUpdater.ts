@@ -62,6 +62,6 @@ export function initFileUpdaterListener(): void {
  *
  * @param val - Whether synchronization should be paused.
  */
-export function setPaused(val: boolean) {
+export function setPaused(val: boolean): void {
   paused = val;
 }
