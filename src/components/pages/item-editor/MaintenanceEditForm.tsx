@@ -110,7 +110,7 @@ function MaintenanceEditForm({
 
                 setDraft((previous) => ({
                   ...previous,
-                  dateServiced: date != null ? date : Date.now().toString(),
+                  dateServiced: date != null ? date : new Date().toISOString(),
                 }));
               }}
             />
