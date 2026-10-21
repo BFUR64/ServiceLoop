@@ -93,7 +93,7 @@ export function Dashboard() {
                         currentOdometer={vehicleSelected.currentOdometer}
                         itemId={item.id}
                         name={item.name}
-                        note={item.note ?? ""}
+                        note={item.note}
                         priority={item.priority}
                       />
                     ))}
@@ -112,7 +112,7 @@ export function Dashboard() {
                       vehicleId={vehicleId}
                       itemId={item.id}
                       name={item.name}
-                      note={item.note ?? ""}
+                      itemNote={item.note}
                       dateServiced={item.dateServiced}
                       mileageServiced={item.mileageServiced}
                       intervalKm={item.intervalKm}

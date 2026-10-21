@@ -78,7 +78,9 @@ function ActionCard({
           <Button
             onClick={() => {
               const toPrint =
-                itemNote === "" ? "Add a note to see it here." : itemNote;
+                itemNote === "" || itemNote == null
+                  ? "Add a note to see it here."
+                  : itemNote;
 
               setText(`${toPrint}`);
             }}

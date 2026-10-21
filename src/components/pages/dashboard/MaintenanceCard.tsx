@@ -11,7 +11,7 @@ interface MaintenanceProp {
   vehicleId: string;
   itemId: string;
   name: string;
-  note: string | null;
+  itemNote: string | null;
   dateServiced: string;
   mileageServiced: number;
   intervalKm: number | null;
@@ -25,7 +25,7 @@ function MaintenanceCard({
   vehicleId,
   itemId,
   name,
-  note: itemNote,
+  itemNote,
   dateServiced,
   mileageServiced,
   intervalKm,

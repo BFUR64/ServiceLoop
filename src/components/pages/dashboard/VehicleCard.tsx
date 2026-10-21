@@ -66,7 +66,15 @@ function VehicleCard({ vehicleId, vehicleSelected }: VehicleProp) {
             <ButtonGroup variant="text" sx={{ alignItems: "start" }}>
               <Tooltip title="View note">
                 <Button
-                  onClick={() => setText(`${vehicleSelected.note ?? ""}`)}
+                  onClick={() => {
+                    const toPrint =
+                      vehicleSelected.note === "" ||
+                      vehicleSelected.note == null
+                        ? "Add a note to see it here."
+                        : vehicleSelected.note;
+
+                    setText(`${toPrint}`);
+                  }}
                 >
                   <ChatOutlined
                     sx={{
