@@ -20,7 +20,9 @@ function ReloadPopup() {
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={() => window.location.reload()}>Reload</Button>
+        <Button variant="contained" onClick={() => window.location.reload()}>
+          Reload
+        </Button>
       </DialogActions>
     </Dialog>
   );
