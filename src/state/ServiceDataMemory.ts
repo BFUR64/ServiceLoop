@@ -44,10 +44,10 @@ export async function loadData() {
 export async function addVehicle(data: VehicleData) {
   serviceData = {
     ...serviceData,
+    revision: serviceData.revision + 1,
     vehicles: [...serviceData.vehicles, data],
   };
 
-  notify();
   await saveToIdb(serviceData);
 }
 
@@ -57,6 +57,7 @@ export async function updateVehicle(
 ) {
   serviceData = {
     ...serviceData,
+    revision: serviceData.revision + 1,
     vehicles: serviceData.vehicles.map((vehicle) =>
       vehicle.id === vId
         ? {
@@ -67,23 +68,23 @@ export async function updateVehicle(
     ),
   };
 
-  notify();
   await saveToIdb(serviceData);
 }
 
 export async function removeVehicle(vId: string) {
   serviceData = {
     ...serviceData,
+    revision: serviceData.revision + 1,
     vehicles: serviceData.vehicles.filter((vehicle) => vehicle.id !== vId),
   };
 
-  notify();
   await saveToIdb(serviceData);
 }
 
 export async function addTaskItem(vId: string, data: TaskItem) {
   serviceData = {
     ...serviceData,
+    revision: serviceData.revision + 1,
     vehicles: serviceData.vehicles.map((vehicle) =>
       vehicle.id === vId
         ? {
@@ -94,13 +95,13 @@ export async function addTaskItem(vId: string, data: TaskItem) {
     ),
   };
 
-  notify();
   await saveToIdb(serviceData);
 }
 
 export async function addMaintenanceItem(vId: string, data: MaintenanceItem) {
   serviceData = {
     ...serviceData,
+    revision: serviceData.revision + 1,
     vehicles: serviceData.vehicles.map((vehicle) =>
       vehicle.id === vId
         ? {
@@ -111,7 +112,6 @@ export async function addMaintenanceItem(vId: string, data: MaintenanceItem) {
     ),
   };
 
-  notify();
   await saveToIdb(serviceData);
 }
 
@@ -122,6 +122,7 @@ export async function updateTaskItem(
 ) {
   serviceData = {
     ...serviceData,
+    revision: serviceData.revision + 1,
     vehicles: serviceData.vehicles.map((vehicle) =>
       vehicle.id === vId
         ? {
@@ -139,7 +140,6 @@ export async function updateTaskItem(
     ),
   };
 
-  notify();
   await saveToIdb(serviceData);
 }
 
@@ -150,6 +150,7 @@ export async function updateMaintenanceItem(
 ) {
   serviceData = {
     ...serviceData,
+    revision: serviceData.revision + 1,
     vehicles: serviceData.vehicles.map((vehicle) =>
       vehicle.id === vId
         ? {
@@ -167,13 +168,13 @@ export async function updateMaintenanceItem(
     ),
   };
 
-  notify();
   await saveToIdb(serviceData);
 }
 
 export async function removeTaskItem(vId: string, sId: string) {
   serviceData = {
     ...serviceData,
+    revision: serviceData.revision + 1,
     vehicles: serviceData.vehicles.map((vehicle) =>
       vehicle.id === vId
         ? {
@@ -184,13 +185,13 @@ export async function removeTaskItem(vId: string, sId: string) {
     ),
   };
 
-  notify();
   await saveToIdb(serviceData);
 }
 
 export async function removeMaintenanceItem(vId: string, sId: string) {
   serviceData = {
     ...serviceData,
+    revision: serviceData.revision + 1,
     vehicles: serviceData.vehicles.map((vehicle) =>
       vehicle.id === vId
         ? {
@@ -203,6 +204,5 @@ export async function removeMaintenanceItem(vId: string, sId: string) {
     ),
   };
 
-  notify();
   await saveToIdb(serviceData);
 }
