@@ -11,7 +11,7 @@ function ReloadPopup() {
   const open = useReloadPopup();
 
   return (
-    <Dialog open={open != null}>
+    <Dialog open={open}>
       <DialogTitle>Critical</DialogTitle>
 
       <DialogContent>
