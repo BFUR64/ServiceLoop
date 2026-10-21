@@ -13,6 +13,7 @@ import { useTheme } from "@mui/material/styles";
 import type { VehicleData } from "../../../models/ServiceData";
 import { setText } from "../../../hooks/useNotePopup";
 import { normalizeOdometer } from "../../../utils/InputUtils";
+import { useState } from "react";
 
 interface VehicleProp {
   vehicleId: string | undefined;
@@ -22,6 +23,10 @@ interface VehicleProp {
 function VehicleCard({ vehicleId, vehicleSelected }: VehicleProp) {
   const navigate = useNavigate();
   const theme = useTheme();
+
+  const [odometerDraft, setOdometerDraft] = useState(
+    vehicleSelected?.currentOdometer ?? 0,
+  );
 
   return (
     <Paper
@@ -55,11 +60,11 @@ function VehicleCard({ vehicleId, vehicleSelected }: VehicleProp) {
                 type="text"
                 inputMode="numeric"
                 variant="standard"
-                value={vehicleSelected.currentOdometer}
+                value={odometerDraft}
                 onChange={(event) => {
-                  updateVehicle(vehicleId, {
-                    currentOdometer: normalizeOdometer(event.target.value),
-                  });
+                  const value = normalizeOdometer(event.target.value);
+                  setOdometerDraft(value);
+                  saveDebouncedOdometer(vehicleId, value);
                 }}
               />
             </Stack>
@@ -96,6 +101,18 @@ function VehicleCard({ vehicleId, vehicleSelected }: VehicleProp) {
       )}
     </Paper>
   );
+}
+
+let timer: number | undefined = undefined;
+
+function saveDebouncedOdometer(vId: string, odometer: number) {
+  clearTimeout(timer);
+
+  timer = setTimeout(() => {
+    updateVehicle(vId, {
+      currentOdometer: odometer,
+    });
+  }, 500);
 }
 
 export default VehicleCard;
