@@ -14,13 +14,21 @@ import AppThemeProvider from "./services/AppThemeProvider.tsx";
 import { initHandle } from "./fs-adapters/fs-api/DirectoryAccess.ts";
 import { initFolderChangeListener } from "./services/FolderChangeListener.ts";
 import { initFileUpdaterListener } from "./services/FileUpdater.ts";
+import { setReloadPopup } from "./hooks/useReloadPopup.ts";
 
-await initHandle();
-await loadData();
-
-initServiceDataMemoryListener();
-initFolderChangeListener();
-initFileUpdaterListener();
+try {
+  await initHandle();
+  await loadData();
+  initServiceDataMemoryListener();
+  initFolderChangeListener();
+  initFileUpdaterListener();
+} catch (error) {
+  console.error(
+    "Failed to initialize handle or load service data, aborting:",
+    error,
+  );
+  setReloadPopup(true);
+}
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

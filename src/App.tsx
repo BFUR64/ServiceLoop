@@ -12,6 +12,7 @@ import Notes from "./components/modals/NotesPopup";
 import Confirm from "./components/modals/ConfirmPopup";
 import FSPopup from "./components/modals/FSPopup";
 import Toast from "./components/modals/Toast";
+import ReloadPopup from "./components/modals/ReloadPopup";
 
 function App() {
   const location = useLocation();
@@ -44,6 +45,8 @@ function App() {
       <Confirm />
       <FSPopup />
       <Toast />
+
+      <ReloadPopup />
     </Stack>
   );
 }
