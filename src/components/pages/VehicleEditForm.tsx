@@ -9,6 +9,7 @@ import TextField from "@mui/material/TextField";
 import BackButton from "../shared/BackButton.tsx";
 import { validateName, normalizeOdometer } from "../../utils/InputUtils.ts";
 import { confirmPopup } from "../../hooks/useConfirmPopup.ts";
+import { LAST_VEHICLE_SELECTED } from "../../models/PreferenceStore.ts";
 
 interface VehicleDraft {
   nickname: string;
@@ -159,6 +160,7 @@ function VehicleEditForm() {
                 maintenanceItems: [],
               });
 
+              localStorage.setItem(LAST_VEHICLE_SELECTED, newId);
               navigate(`/dashboard/${newId}`);
             }
           }}

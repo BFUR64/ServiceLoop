@@ -8,6 +8,7 @@ import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
 import AddCircle from "@mui/icons-material/AddCircle";
 import type { ServiceData } from "../../../models/ServiceData";
+import { LAST_VEHICLE_SELECTED } from "../../../models/PreferenceStore";
 
 interface VehicleSelectorProp {
   vehicleId: string | undefined;
@@ -24,7 +25,12 @@ function VehicleSelector({ vehicleId, serviceData }: VehicleSelectorProp) {
         <Select
           labelId="vehicle-select-label"
           value={vehicleId ?? ""}
-          onChange={(event) => navigate(`/dashboard/${event.target.value}`)}
+          onChange={(event) => {
+            const vehicleSelected = event.target.value;
+
+            localStorage.setItem(LAST_VEHICLE_SELECTED, vehicleSelected);
+            navigate(`/dashboard/${vehicleSelected}`);
+          }}
         >
           {serviceData.vehicles.map((vehicle) => (
             <MenuItem key={vehicle.id} value={vehicle.id}>

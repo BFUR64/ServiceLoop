@@ -3,6 +3,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useEffect, useState, type ReactNode } from "react";
+import { THEME_PREFERENCE } from "../models/PreferenceStore";
 
 type ThemePreference = "light" | "dark" | "system";
 
@@ -48,7 +49,7 @@ export default function AppThemeProvider({
 }
 
 function getThemePreference(): ThemePreference {
-  const preference = localStorage.getItem("theme-preference");
+  const preference = localStorage.getItem(THEME_PREFERENCE);
 
   if (
     preference === "light" ||
