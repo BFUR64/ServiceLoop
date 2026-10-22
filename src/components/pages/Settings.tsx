@@ -115,9 +115,9 @@ export function Settings() {
                 setNote(
                   "Failed to clear app data completely. Check your data stores before continuing.",
                 );
-              } finally {
-                setPaused(false);
               }
+
+              setPaused(false);
             }
           }}
         >
