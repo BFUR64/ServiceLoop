@@ -12,7 +12,7 @@ import EditOutlined from "@mui/icons-material/EditOutlined";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import * as dataStorage from "../../../state/ServiceDataMemory";
-import { setText } from "../../../hooks/useNotePopup";
+import { setNote } from "../../../hooks/useNotePopup";
 import type { ItemType } from "../../../models/ServiceData";
 import * as serviceData from "../../../state/ServiceDataMemory";
 import { confirmPopup } from "../../../hooks/useConfirmPopup";
@@ -82,7 +82,7 @@ function ActionCard({
                   ? "Add a note to see it here."
                   : itemNote;
 
-              setText(`${toPrint}`);
+              setNote(`${toPrint}`);
             }}
           >
             <ChatOutlined

@@ -5,7 +5,7 @@ let text: string | null = null;
 const listeners: Set<() => void> = new Set<() => void>();
 
 export function useNotePopup() {
-  return [useSyncExternalStore(subscribe, getText), setText] as const;
+  return [useSyncExternalStore(subscribe, getNote), setNote] as const;
 }
 
 export function subscribe(listener: () => void) {
@@ -22,11 +22,11 @@ export function notify() {
   }
 }
 
-export function setText(val: string | null) {
+export function setNote(val: string | null) {
   text = val;
   notify();
 }
 
-export function getText() {
+export function getNote() {
   return text;
 }

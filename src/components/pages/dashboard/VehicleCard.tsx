@@ -11,7 +11,7 @@ import ChatOutlined from "@mui/icons-material/ChatOutlined";
 import EditOutlined from "@mui/icons-material/EditOutlined";
 import { useTheme } from "@mui/material/styles";
 import type { VehicleData } from "../../../models/ServiceData";
-import { setText } from "../../../hooks/useNotePopup";
+import { setNote } from "../../../hooks/useNotePopup";
 import { normalizeOdometer } from "../../../utils/InputUtils";
 
 interface VehicleProp {
@@ -73,7 +73,7 @@ function VehicleCard({ vehicleId, vehicleSelected }: VehicleProp) {
                         ? "Add a note to see it here."
                         : vehicleSelected.note;
 
-                    setText(`${toPrint}`);
+                    setNote(`${toPrint}`);
                   }}
                 >
                   <ChatOutlined

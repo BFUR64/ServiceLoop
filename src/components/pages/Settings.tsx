@@ -17,6 +17,9 @@ import {
 } from "../../fs-adapters/fs-api/DirectoryAccess";
 import { TextField } from "@mui/material";
 import { setPaused } from "../../services/FileUpdater";
+import { saveFile } from "../../fs-adapters/fs-api/FileAccess";
+import { emptyServiceData } from "../../models/ServiceData";
+import { setNote } from "../../hooks/useNotePopup";
 
 export function Settings() {
   const currentPreference =
@@ -54,7 +57,7 @@ export function Settings() {
           disabled={!SUPPORTS_FS}
           onClick={async () => {
             const confirmed = await confirmPopup(
-              "Are you sure you want to change directories? This will clear the CURRENT SESSION of your data!",
+              "Are you sure you want to change directories? If the selected directory contains a service data file, its contents will replace the data in your current session.",
             );
 
             if (confirmed) {
@@ -99,7 +102,22 @@ export function Settings() {
             );
 
             if (confirmed) {
-              deleteDataFromIdb();
+              try {
+                setPaused(true);
+
+                await deleteDataFromIdb();
+                await saveFile(emptyServiceData);
+              } catch (error) {
+                console.error(
+                  "Failed to delete data from IndexedDB or save empty file:",
+                  error,
+                );
+                setNote(
+                  "Failed to clear app data completely. Check your data stores before continuing.",
+                );
+              } finally {
+                setPaused(false);
+              }
             }
           }}
         >

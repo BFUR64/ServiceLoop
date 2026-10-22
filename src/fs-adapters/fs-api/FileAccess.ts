@@ -39,6 +39,28 @@ export async function loadFile(): Promise<ServiceData> {
   }
 }
 
+export async function checkFileExists(): Promise<boolean> {
+  const handle = getHandle();
+
+  if (!(await handleAuthorized()) && !(await directoryAvailable())) {
+    throw new DOMException(
+      "Not authorized / Directory does not exist",
+      "InvalidStateError",
+    );
+  }
+
+  try {
+    await handle.getFileHandle(FILE_NAME);
+    return true;
+  } catch (error) {
+    if (error instanceof DOMException && error.name === "NotFoundError") {
+      return false;
+    }
+
+    throw error;
+  }
+}
+
 export async function saveFile(data: ServiceData) {
   const handle = getHandle();
 
