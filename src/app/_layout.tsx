@@ -1,18 +1,86 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { Stack, usePathname, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { Platform, useColorScheme, View } from "react-native";
+import {
+  IconButton,
+  MD3DarkTheme,
+  MD3LightTheme,
+  PaperProvider,
+  Surface,
+} from "react-native-paper";
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+export default function RootLayout() {
+  const pathname = usePathname();
+  const isDashboard = pathname === "/";
 
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const isDark = colorScheme === "dark";
+
+  const isWeb = Platform.OS === "web";
+
+  const router = useRouter();
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const theme = mounted && isDark ? MD3DarkTheme : MD3LightTheme;
+
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <PaperProvider theme={theme}>
+      <View
+        style={[
+          {
+            flex: 1,
+          },
+          isWeb && {
+            width: "100%",
+            backgroundColor: theme.colors.background,
+          },
+        ]}
+      >
+        <Surface
+          style={[
+            {
+              flex: 1,
+            },
+            isWeb && {
+              width: 750,
+              alignSelf: "center",
+            },
+          ]}
+        >
+          <Stack
+            screenOptions={{
+              headerTintColor: theme.colors.onSurface,
+              headerStyle: { backgroundColor: theme.colors.background },
+              headerShadowVisible: false,
+              headerRight: () =>
+                isDashboard &&
+                mounted && (
+                  <IconButton
+                    icon="cog"
+                    onPress={() => router.navigate("/settings")}
+                  />
+                ),
+            }}
+          >
+            <Stack.Screen name="index" options={{ title: "ServiceLoop" }} />
+
+            <Stack.Screen
+              name="vehicles/index"
+              options={{ title: "Something" }}
+            />
+
+            <Stack.Screen
+              name="settings/index"
+              options={{ title: "Settings" }}
+            />
+          </Stack>
+        </Surface>
+      </View>
+    </PaperProvider>
   );
 }
