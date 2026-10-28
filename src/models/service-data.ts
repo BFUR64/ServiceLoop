@@ -42,3 +42,5 @@ export interface IntervalTime {
 }
 
 export type TimeUnit = "day" | "week" | "month" | "year";
+
+export type ItemType = "task" | "maintenance";
