@@ -163,6 +163,6 @@ function calculateDue({
   // Worst-case = whichever is furthest along
   const worst = Math.max(...ratios);
 
-  // Flip to countdown: 100 = healthy, 0 = due, then clamp
-  return Math.min(100, Math.max(0, (1 - worst) * 100));
+  // Flip to countdown: 100 = healthy, 0 = due, no minimum clamp for sorting
+  return Math.min(1, 1 - worst);
 }

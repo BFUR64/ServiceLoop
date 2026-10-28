@@ -52,9 +52,9 @@ export default function MaintenanceCard({
   };
 
   const progressColor =
-    progressBar >= 60
+    progressBar >= 0.6
       ? STATUS_COLORS.good
-      : progressBar >= 25
+      : progressBar >= 0.25
         ? STATUS_COLORS.warning
         : STATUS_COLORS.critical;
 
@@ -80,7 +80,10 @@ export default function MaintenanceCard({
         }
       />
       <View style={{ padding: 12, paddingTop: 0 }}>
-        <ProgressBar progress={progressBar / 100} color={progressColor} />
+        <ProgressBar
+          progress={Math.max(0, progressBar)}
+          color={progressColor}
+        />
       </View>
     </Card>
   );
