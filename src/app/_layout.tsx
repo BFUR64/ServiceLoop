@@ -70,8 +70,8 @@ export default function RootLayout() {
             <Stack.Screen name="index" options={{ title: "ServiceLoop" }} />
 
             <Stack.Screen
-              name="vehicles/index"
-              options={{ title: "Something" }}
+              name="vehicle-editor/index"
+              options={{ title: "Vehicle Edit" }}
             />
 
             <Stack.Screen

@@ -1,6 +1,5 @@
 import { ServiceData, VehicleData } from "@/models/service-data";
 import { useState } from "react";
-import { View } from "react-native";
 import { Button, Menu } from "react-native-paper";
 
 interface VehcileSelectorProp {
@@ -17,31 +16,25 @@ export default function VehicleSelector({
   const [visible, setVisible] = useState(false);
 
   return (
-    <View
-      style={{
-        alignSelf: "flex-start",
-      }}
+    <Menu
+      visible={visible}
+      onDismiss={() => setVisible(false)}
+      anchor={
+        <Button mode="outlined" onPress={() => setVisible(true)}>
+          {vehicle != null ? vehicle.nickname : "Select a Vehicle"}
+        </Button>
+      }
     >
-      <Menu
-        visible={visible}
-        onDismiss={() => setVisible(false)}
-        anchor={
-          <Button mode="outlined" onPress={() => setVisible(true)}>
-            {vehicle != null ? vehicle.nickname : "Select a Vehicle"}
-          </Button>
-        }
-      >
-        {serviceData.vehicles.map((vehicle) => (
-          <Menu.Item
-            key={vehicle.id}
-            title={vehicle.nickname}
-            onPress={() => {
-              setVehicleId(vehicle.id);
-              setVisible(false);
-            }}
-          />
-        ))}
-      </Menu>
-    </View>
+      {serviceData.vehicles.map((vehicle) => (
+        <Menu.Item
+          key={vehicle.id}
+          title={vehicle.nickname}
+          onPress={() => {
+            setVehicleId(vehicle.id);
+            setVisible(false);
+          }}
+        />
+      ))}
+    </Menu>
   );
 }

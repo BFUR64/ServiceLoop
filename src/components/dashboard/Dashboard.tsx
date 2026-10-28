@@ -1,7 +1,9 @@
 import { useServiceData } from "@/hooks/use-service-data";
 import { VehicleData } from "@/models/service-data";
 import { useEffect, useState } from "react";
+import { View } from "react-native";
 import { Surface } from "react-native-paper";
+import AddVehicle from "./AddVehicle";
 import VehicleSelector from "./VehicleSelector";
 
 export default function Dashboard() {
@@ -18,12 +20,15 @@ export default function Dashboard() {
   }, [vehicleId]);
 
   return (
-    <Surface style={{ flex: 1, padding: "1rem" }}>
-      <VehicleSelector
-        serviceData={serviceData}
-        vehicle={vehicle}
-        setVehicleId={setVehicleId}
-      />
+    <Surface style={{ flex: 1, padding: 16 }}>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <VehicleSelector
+          serviceData={serviceData}
+          vehicle={vehicle}
+          setVehicleId={setVehicleId}
+        />
+        <AddVehicle />
+      </View>
     </Surface>
   );
 }
