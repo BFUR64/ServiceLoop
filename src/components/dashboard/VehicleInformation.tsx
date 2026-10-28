@@ -1,4 +1,5 @@
 import { VehicleData } from "@/models/service-data";
+import { useRouter } from "expo-router";
 import { View } from "react-native";
 import { Card, IconButton, Text, TextInput } from "react-native-paper";
 
@@ -11,6 +12,8 @@ export default function VehicleInformation({
   vehicleId,
   vehicle,
 }: VehicleInformationProp) {
+  const router = useRouter();
+
   return (
     <Card mode="outlined">
       <Card.Content style={{ padding: 16 }}>
@@ -51,7 +54,7 @@ export default function VehicleInformation({
                 style={{ margin: 0 }}
                 mode="outlined"
                 icon={"pencil"}
-                onPress={() => {}}
+                onPress={() => router.navigate(`/vehicle-editor/${vehicleId}`)}
               />
             </View>
           </View>

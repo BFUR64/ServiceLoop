@@ -1,9 +1,5 @@
-import { Text, View } from "react-native";
+import VehicleEditor from "@/components/vehicle-editor/VehicleEditor";
 
-export default function Test() {
-  return (
-    <View>
-      <Text>Hello World 2!</Text>
-    </View>
-  );
+export default function VehiclePage() {
+  return <VehicleEditor />;
 }

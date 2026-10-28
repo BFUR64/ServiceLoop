@@ -75,6 +75,11 @@ export default function RootLayout() {
             />
 
             <Stack.Screen
+              name="vehicle-editor/[id]"
+              options={{ title: "Vehicle Edit" }}
+            />
+
+            <Stack.Screen
               name="settings/index"
               options={{ title: "Settings" }}
             />
