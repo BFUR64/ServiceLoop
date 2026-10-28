@@ -118,7 +118,7 @@ const data: ServiceData = {
     {
       id: "00123912039213029-12-312-3213123-1212-312-",
       nickname: "TEIC",
-      note: null,
+      note: "Bruh 1234",
       make: null,
       model: null,
       trim: null,

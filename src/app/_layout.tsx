@@ -1,6 +1,11 @@
 import { Stack, usePathname, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Platform, useColorScheme, View } from "react-native";
+import {
+  Platform,
+  useColorScheme,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import {
   IconButton,
   MD3DarkTheme,
@@ -17,6 +22,8 @@ export default function RootLayout() {
   const isDark = colorScheme === "dark";
 
   const isWeb = Platform.OS === "web";
+  const { width } = useWindowDimensions();
+  const isLargeScreen = width >= 768;
 
   const router = useRouter();
 
@@ -47,7 +54,8 @@ export default function RootLayout() {
               flex: 1,
             },
             isWeb && {
-              width: 750,
+              width: "100%",
+              maxWidth: mounted && isLargeScreen ? 768 : undefined,
               alignSelf: "center",
             },
           ]}

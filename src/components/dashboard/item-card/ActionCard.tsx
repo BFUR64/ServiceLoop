@@ -1,4 +1,6 @@
+import ViewNoteDialog from "@/components/modals/ViewNoteDialog";
 import { ItemType } from "@/models/service-data";
+import { useState } from "react";
 import { ScrollView, View } from "react-native";
 import { IconButton } from "react-native-paper";
 
@@ -21,6 +23,12 @@ export default function ActionCard({
   information,
   priority,
 }: ActionCardProp) {
+  const [commentVisible, setCommentVisible] = useState(false);
+
+  const onDismiss = () => {
+    setCommentVisible(false);
+  };
+
   return (
     <View
       style={{
@@ -39,7 +47,7 @@ export default function ActionCard({
         <IconButton
           style={{ margin: 0 }}
           icon={"comment-text"}
-          onPress={() => {}}
+          onPress={() => setCommentVisible(true)}
         />
         <IconButton
           style={{ margin: 0 }}
@@ -48,6 +56,11 @@ export default function ActionCard({
         />
         <IconButton style={{ margin: 0 }} icon={"pencil"} onPress={() => {}} />
       </View>
+      <ViewNoteDialog
+        text={itemNote}
+        visible={commentVisible}
+        onDismiss={onDismiss}
+      />
     </View>
   );
 }
