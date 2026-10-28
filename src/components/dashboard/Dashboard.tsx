@@ -3,7 +3,7 @@ import { VehicleData } from "@/models/service-data";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { Surface } from "react-native-paper";
-import AddVehicle from "./AddVehicle";
+import AddVehicleButton from "./AddVehicleButton";
 import VehicleSelector from "./VehicleSelector";
 
 export default function Dashboard() {
@@ -27,7 +27,7 @@ export default function Dashboard() {
           vehicle={vehicle}
           setVehicleId={setVehicleId}
         />
-        <AddVehicle />
+        <AddVehicleButton />
       </View>
     </Surface>
   );

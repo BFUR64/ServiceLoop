@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import { IconButton } from "react-native-paper";
 
-export default function AddVehicle() {
+export default function AddVehicleButton() {
   const router = useRouter();
 
   return (
