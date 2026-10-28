@@ -9,7 +9,7 @@ import VehicleSelector from "./VehicleSelector";
 export default function Dashboard() {
   const serviceData = useServiceData();
 
-  const [vehicleId, setVehicleId] = useState<string | null>(null);
+  const [vehicleId, setVehicleId] = useState<string | undefined>(undefined);
 
   const [vehicle, setVehicle] = useState<VehicleData | undefined>(undefined);
 

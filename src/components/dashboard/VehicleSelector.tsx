@@ -5,7 +5,7 @@ import { Button, Menu } from "react-native-paper";
 interface VehcileSelectorProp {
   serviceData: ServiceData;
   vehicle: VehicleData | undefined;
-  setVehicleId: React.Dispatch<React.SetStateAction<string | null>>;
+  setVehicleId: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export default function VehicleSelector({
