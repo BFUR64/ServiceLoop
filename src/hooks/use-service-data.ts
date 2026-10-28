@@ -24,49 +24,7 @@ const data: ServiceData = {
         {
           id: "8d103d3b-f457-424d-8255-800540dc742a",
           priority: false,
-          name: "EKO3RJGUHNJFKLEORGFIJNEMFKGLKJHNFGKJHFNDKFJGFN",
-          note: null,
-        },
-        {
-          id: "1",
-          priority: false,
-          name: "EKO3RJGUHNJFKLEORGFIJNEMFKGLKJHNFGKJHFNDKFJGFN",
-          note: null,
-        },
-        {
-          id: "2",
-          priority: false,
-          name: "EKO3RJGUHNJFKLEORGFIJNEMFKGLKJHNFGKJHFNDKFJGFN",
-          note: null,
-        },
-        {
-          id: "3",
-          priority: false,
-          name: "EKO3RJGUHNJFKLEORGFIJNEMFKGLKJHNFGKJHFNDKFJGFN",
-          note: null,
-        },
-        {
-          id: "4",
-          priority: false,
-          name: "EKO3RJGUHNJFKLEORGFIJNEMFKGLKJHNFGKJHFNDKFJGFN",
-          note: null,
-        },
-        {
-          id: "5",
-          priority: false,
-          name: "EKO3RJGUHNJFKLEORGFIJNEMFKGLKJHNFGKJHFNDKFJGFN",
-          note: null,
-        },
-        {
-          id: "6",
-          priority: false,
-          name: "EKO3RJGUHNJFKLEORGFIJNEMFKGLKJHNFGKJHFNDKFJGFN",
-          note: null,
-        },
-        {
-          id: "7",
-          priority: false,
-          name: "EKO3RJGUHNJFKLEORGFIJNEMFKGLKJHNFGKJHFNDKFJGFN",
+          name: "Add Handguard",
           note: null,
         },
         {

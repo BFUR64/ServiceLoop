@@ -14,6 +14,7 @@ import AddItemButton from "./AddItemButton";
 import AddVehicleButton from "./AddVehicleButton";
 import VehicleInformation from "./VehicleInformation";
 import VehicleSelector from "./VehicleSelector";
+import MaintenanceCard from "./item-card/MaintenanceCard";
 import { TaskCard } from "./item-card/TaskCard";
 
 export default function Dashboard() {
@@ -30,6 +31,7 @@ export default function Dashboard() {
   }, [vehicleId]);
 
   const sortedTaskItems = sortTaskItems(vehicle);
+  const sortedMaintenanceItems = sortMaintenanceItems(vehicle);
 
   return (
     <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
@@ -61,6 +63,23 @@ export default function Dashboard() {
                     itemName={item.name}
                     itemNote={item.note}
                     priority={item.priority}
+                  />
+                ))}
+                <Text>Maintenance</Text>
+                {sortedMaintenanceItems?.map(({ item, due }) => (
+                  <MaintenanceCard
+                    key={item.id}
+                    vehicleId={vehicleId}
+                    itemId={item.id}
+                    name={item.name}
+                    itemNote={item.note}
+                    dateServiced={item.dateServiced}
+                    mileageServiced={item.mileageServiced}
+                    intervalKm={item.intervalKm}
+                    intervalTime={item.intervalTime}
+                    currentOdometer={vehicle.currentOdometer}
+                    priority={item.priority}
+                    progressBar={due}
                   />
                 ))}
               </View>

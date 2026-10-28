@@ -40,13 +40,19 @@ export default function VehicleInformation({
                 />
               </View>
             </View>
-            <View>
+            <View style={{ gap: 8 }}>
               <IconButton
+                style={{ margin: 0 }}
                 mode="outlined"
                 icon={"comment-text"}
                 onPress={() => {}}
               />
-              <IconButton mode="outlined" icon={"pencil"} onPress={() => {}} />
+              <IconButton
+                style={{ margin: 0 }}
+                mode="outlined"
+                icon={"pencil"}
+                onPress={() => {}}
+              />
             </View>
           </View>
         )}
