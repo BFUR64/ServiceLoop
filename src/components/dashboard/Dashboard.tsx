@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { Surface } from "react-native-paper";
 import AddVehicleButton from "./AddVehicleButton";
+import VehicleInformation from "./VehicleInformation";
 import VehicleSelector from "./VehicleSelector";
 
 export default function Dashboard() {
@@ -21,13 +22,16 @@ export default function Dashboard() {
 
   return (
     <Surface style={{ flex: 1, padding: 16 }}>
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <VehicleSelector
-          serviceData={serviceData}
-          vehicle={vehicle}
-          setVehicleId={setVehicleId}
-        />
-        <AddVehicleButton />
+      <View style={{ gap: 8 }}>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <VehicleSelector
+            serviceData={serviceData}
+            vehicle={vehicle}
+            setVehicleId={setVehicleId}
+          />
+          <AddVehicleButton />
+        </View>
+        <VehicleInformation vehicleId={vehicleId} vehicle={vehicle} />
       </View>
     </Surface>
   );

@@ -1,6 +1,6 @@
 import { ServiceData, VehicleData } from "@/models/service-data";
 import { useState } from "react";
-import { Button, Menu } from "react-native-paper";
+import { Button, Menu, useTheme } from "react-native-paper";
 
 interface VehcileSelectorProp {
   serviceData: ServiceData;
@@ -13,6 +13,8 @@ export default function VehicleSelector({
   vehicle,
   setVehicleId,
 }: VehcileSelectorProp) {
+  const theme = useTheme();
+
   const [visible, setVisible] = useState(false);
 
   return (
@@ -20,7 +22,14 @@ export default function VehicleSelector({
       visible={visible}
       onDismiss={() => setVisible(false)}
       anchor={
-        <Button mode="outlined" onPress={() => setVisible(true)}>
+        <Button
+          mode="outlined"
+          onPress={() => setVisible(true)}
+          labelStyle={{ color: theme.colors.onSurface }}
+          style={{
+            backgroundColor: theme.colors.background,
+          }}
+        >
           {vehicle != null ? vehicle.nickname : "Select a Vehicle"}
         </Button>
       }
