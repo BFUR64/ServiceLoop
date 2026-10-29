@@ -23,7 +23,7 @@ export default function ViewNoteDialog({
           isWeb && {
             alignSelf: "center",
             width: "100%",
-            maxWidth: 768,
+            maxWidth: 700,
           },
         ]}
         visible={visible}
